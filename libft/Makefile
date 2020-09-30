@@ -60,7 +60,6 @@ SRC_FILES =  ft_atoi.c\
 				divergents/ft_strendswithc.c\
 				divergents/ft_strjoin2.c\
 				divergents/ft_freestrarr.c\
-				divergents/ft_quote_open.c\
 
 SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_FILES))
 
@@ -73,16 +72,16 @@ SRC_O = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(SRC_O)
-		ar rcs $(NAME) $(SRC_O)
+		@ar rcs $(NAME) $(SRC_O)
 
 %.o: %.c
-	$(CC) ${FLAGS} -I ${INCLUDE_DIR} -o $@ -c $<
+	@$(CC) ${FLAGS} -I ${INCLUDE_DIR} -o $@ -c $<
 
 clean:
-	rm -rf  $(SRC_O)
+	@rm -rf  $(SRC_O)
 
 fclean: clean
-		rm -rf $(NAME)
+		@rm -rf $(NAME)
 
 re: 	fclean all clean
 

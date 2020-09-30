@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 13:19:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/09/30 13:29:11 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/09/30 20:54:42 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int		ft_check_multilines(char *str)
 		ft_quote_open(&quotes, str[i]);
 		i++;
 	}
-	return (quotes.q || quotes.dq);	
+	return (quotes.q || quotes.dq);
 }

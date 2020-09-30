@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:19:00 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/09/30 13:04:36 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/09/30 20:48:56 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ char	**ft_split_quote(char *str, char *charset)
 		return (NULL);
 	while (i < dest_size)
 	{
-		dest[i] = ft_cut_word(str, charset, &j);
+		if (!(dest[i] = ft_cut_word(str, charset, &j)))
+		{
+			ft_freestrarr(dest);
+			return (NULL);
+		}
 		i++;
 	}
 	dest[i] = NULL;
