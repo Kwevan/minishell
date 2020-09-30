@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:27 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/09/18 18:06:25 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:03:40 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_quotes
+{
+	int q;
+	int dq;
+}				t_quotes;
 
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
@@ -84,4 +90,6 @@ char			*ft_strndup(char *s, long len);
 int				ft_strendswithc(char *s, char c);
 char			*ft_strjoin2(char const *s1, const char *c, char const *s2);
 void			ft_freestrarr(char **s);
+int				ft_quote_open(t_quotes *quotes, char c);
+
 #endif

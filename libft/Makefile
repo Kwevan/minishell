@@ -60,6 +60,7 @@ SRC_FILES =  ft_atoi.c\
 				divergents/ft_strendswithc.c\
 				divergents/ft_strjoin2.c\
 				divergents/ft_freestrarr.c\
+				divergents/ft_quote_open.c\
 
 SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_FILES))
 

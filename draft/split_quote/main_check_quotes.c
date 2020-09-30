@@ -10,15 +10,14 @@ char	**ft_split_quote(char *str, char *charset);
 
 void test(char *src, char *charset)
 {
-	char **splitted;
+	int multi;
 
     ft_putstr_fd("\n\n\n [ test ]\n\n", 1);
     ft_putstr_fd("src:               ", 1);
     ft_putstr_fd(src, 1);
     ft_putstr_fd("\n\nresult:               ", 1);
-	splitted = ft_split_quote(src, charset);
-    ft_putstr2(splitted);
-    ft_freestrarr(splitted);
+	multi = ft_check_multilines(src, charset);
+    ft_putstr_fd(multi ? "Multilines" : "Ok", 1);
 }
 
 
