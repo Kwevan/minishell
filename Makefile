@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 11:46:02 by afoulqui          #+#    #+#              #
-#    Updated: 2020/09/29 12:02:26 by afoulqui         ###   ########.fr        #
+#    Updated: 2020/09/30 18:19:27 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,9 +57,9 @@ $(OBJ_DIR)%.o:%.c $(HEADERS)
 				
 
 $(NAME):	install $(OBJ)
-				$(CC) $(CFLAG) $(OBJ) $(IFLAG) $(LFLAG) -o $@
+				@$(CC) $(CFLAG) $(OBJ) $(IFLAG) $(LFLAG) -o $@
 				@echo "\n\t\033[36;1m*.............................*"
-				@echo "\n\t*     Compilation $(NAME)     *\t   \033[32;1m--------->>> \033[4;5mComplete\033[0m"
+				@echo "\n\t*    Compilation $(NAME)    *\t   \033[32;1m--------->>> \033[4;5mComplete\033[0m"
 				@echo "\n\t\033[036;1m*.............................*\033[0m"
 
 install :	
@@ -86,11 +86,13 @@ show :
 RM		=	rm -rf
 
 clean:	
-			$(RM) $(OBJ_DIR)
+			@$(RM) $(OBJ_DIR)
+			@echo "\033[36;1m $(NAME) ------>>  clean\033[0m\n"
 
 fclean:		clean
-			$(RM) $(NAME)
-			@make fclean -C $(LIBFT)
+			@$(RM) $(NAME)
+			@make fclean -C $(LIB_DIR)
+			@echo "\033[36;1m $(NAME) ------>>  fclean\033[0m\n"
 
 re:			fclean all
 
