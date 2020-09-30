@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/09/30 17:56:44 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/09/30 21:13:46 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ typedef struct	s_minishell
 */
 
 void	exit_shell(t_minishell *minishell);
-void	ft_freestrarr(char **arr);
 
 #endif
