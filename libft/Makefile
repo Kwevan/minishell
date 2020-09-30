@@ -72,16 +72,16 @@ SRC_O = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(SRC_O)
-		ar rcs $(NAME) $(SRC_O)
+		@ar rcs $(NAME) $(SRC_O)
 
 %.o: %.c
-	$(CC) ${FLAGS} -I ${INCLUDE_DIR} -o $@ -c $<
+	@$(CC) ${FLAGS} -I ${INCLUDE_DIR} -o $@ -c $<
 
 clean:
-	rm -rf  $(SRC_O)
+	@rm -rf  $(SRC_O)
 
 fclean: clean
-		rm -rf $(NAME)
+		@rm -rf $(NAME)
 
 re: 	fclean all clean
 
