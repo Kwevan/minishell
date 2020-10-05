@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/09/30 21:13:46 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/05 13:13:36 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_minishell
 	char		**env;
 	int			has_pipe;
 	int			tube[3];
+	int			ret;
 }				t_minishell;
 
 /* ----------------- */
@@ -46,9 +47,22 @@ typedef struct	s_minishell
 /* ----------------- */
 
 /*
-**	UTILS 
+**	ROOT
+*/
+
+void	ft_prompt_msg(t_minishell *mini);
+
+/*
+**	BUILTINS
+*/
+
+void	ft_pwd(t_minishell *mini);
+
+/*
+**	UTILS
 */
 
 void	exit_shell(t_minishell *minishell);
+char	*ft_get_envv(char **env, char *var);
 
 #endif
