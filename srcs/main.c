@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/05 13:13:51 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:27:12 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		init_env(t_minishell *minishell, char **env)
 int				main(int argc, char **argv, char **env)
 {
 	t_minishell	minishell;
-	/*char		*input;*/
+	char		*input;
 
 	(void)argc;
 	(void)argv;
@@ -44,8 +44,8 @@ int				main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_prompt_msg(&minishell);
-		/*input = get_input(&minishell);
-		handle_input(&minishell, input);*/
+		input = get_input(&minishell);
+		handle_input(&minishell, input);
 	}
 	return (0);
 }

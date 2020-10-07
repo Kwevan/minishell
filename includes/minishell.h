@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/05 13:13:36 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:23:19 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct	s_minishell
 */
 
 void	ft_prompt_msg(t_minishell *mini);
+char	*get_input(t_minishell *mini);
+int		handle_input(t_minishell *mini, char *input);
 
 /*
 **	BUILTINS

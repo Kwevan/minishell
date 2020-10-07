@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prompt_msg.c                                    :+:      :+:    :+:   */
+/*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 14:27:49 by kgouacid         ###   ########.fr       */
+/*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
+/*   Updated: 2020/10/07 14:35:17 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
 
-void	ft_prompt_msg(t_minishell *mini)
+int		handle_input(t_minishell *mini, char *input)
 {
-	char	*cwd;
+	char	**commands;
+	int		ret;
 
-	cwd = ft_get_envv(mini->env, "PWD");
-	if (cwd)
-	{
-		ft_putstr_fd(cwd, 2);
-		ft_putstr_fd(" $ ", 2);
-	}
+	commands = ft_split_quote(input, ";");
+	free(input);
+	ret = 0; //à supprimer
+	(void)mini; // à supprimer
+	//ret = ft_exec_commands(mini, commands);
+	ft_putstr_fd("ici handle input\n", 1);// à supprimer
+	ft_putstr2(commands); // à supprimer
+	return (ret);
 }
