@@ -6,13 +6,13 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 16:04:39 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:19:18 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//mem leak si start end ou res malloc fails
+//rechecker  les mallocs
 
 char	*replace_tilde(char *home, char *input, int i)
 {
@@ -32,7 +32,8 @@ char	*replace_tilde(char *home, char *input, int i)
 	return (res);
 }
 
-char	*parse_input(t_minishell *mini, char **env)
+//cassé avec les quotes
+void	parse_input(t_minishell *mini, char **env)
 {
 	int		i;
 	char	*ret;
@@ -44,14 +45,14 @@ char	*parse_input(t_minishell *mini, char **env)
 		if (mini->input[i] == '~')
 		{
 			ret = replace_tilde(ft_get_envv(env, "HOME"), mini->input, i);
-			return (ret);
+			mini->input = ret;
+			return ;
 		}
 		i++;
 	}
 	ret = ft_strdup(mini->input);
 	free(mini->input);
 	mini->input = ret;
-	return (ret);
 }
 
 void	get_input(t_minishell *mini)

@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 15:59:34 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:09:02 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		handle_input(t_minishell *mini)
 	ret = 0; //à supprimer
 	(void)mini; // à supprimer
 	//ret = ft_exec_commands(mini, commands);
-	ft_putstr_fd("ici handle input\n", 1);// à supprimer
 	ft_putstr2(commands); // à supprimer
 	free(commands);
 	return (ret);
