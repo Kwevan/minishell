@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 14:35:29 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:04:39 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,50 @@ char	*replace_tilde(char *home, char *input, int i)
 	return (res);
 }
 
-char	*parse_input(char **env, char *input)
+char	*parse_input(t_minishell *mini, char **env)
 {
 	int		i;
 	char	*ret;
 
 	ret = NULL;
 	i = 0;
-	while (input[i])
+	while (mini->input[i])
 	{
-		if (input[i] == '~')
+		if (mini->input[i] == '~')
 		{
-			ret = replace_tilde(ft_get_envv(env, "HOME"), input, i);
+			ret = replace_tilde(ft_get_envv(env, "HOME"), mini->input, i);
 			return (ret);
 		}
 		i++;
 	}
-	ret = ft_strdup(input);
-	free(input);
+	ret = ft_strdup(mini->input);
+	free(mini->input);
+	mini->input = ret;
 	return (ret);
 }
 
-char	*get_input(t_minishell *mini)
+void	get_input(t_minishell *mini)
 {
 	int		ret;
 	char	buf;
 	int		i;
-	char	*input;
 
 	i = 0;
-	input = ft_strnew(1);
+	if (!(mini->input = ft_strnew(1)))
+		exit_shell(mini);
 	while (((ret = read(STDIN_FILENO, &buf, 1)) > 0) && buf != '\n')
 	{
-		input[i] = buf;
-		input = ft_realloc(input, i + 1, i + 2);
+		mini->input[i] = buf;
+		if (!(mini->input = ft_realloc(mini->input, i + 1, i + 2)))
+			exit_shell(mini);
 		i++;
 	}
-	input[i] = '\0';
+	mini->input[i] = '\0';
 	if (ret < 1)
 	{
-		ft_putstr_fd("todo: free and exit function 3", 1);
 		ft_putstr_fd(strerror(errno), 1);
-		exit(1);
+		exit_shell(mini);
 	}
-	return (parse_input(mini->env, input));
+	parse_input(mini, mini->env);
+	ft_putstr_fd(mini->input, 1);
 }
