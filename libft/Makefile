@@ -53,6 +53,7 @@ SRC_FILES =  ft_atoi.c\
 				ft_split2.c\
 				ft_strcmp.c\
 				ft_strndup.c\
+				ft_strdel.c\
 				divergents/ft_strlen2.c\
 				divergents/ft_putstr2.c\
 				divergents/ft_putstr_fd2.c\
