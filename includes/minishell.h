@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/07 16:01:18 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/08 09:31:50 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_minishell
 {
 	char		**env;
 	char		*input;
+	char		**commands;
 	int			has_pipe;
 	int			tube[3];
 	int			ret;
