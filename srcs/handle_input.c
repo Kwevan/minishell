@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 16:09:02 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/08 16:23:31 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int		handle_input(t_minishell *mini)
 	if (!(commands = ft_split_quote(mini->input, ";")))
 		exit_shell(mini);
 	free(mini->input);
-	ret = 0; //à supprimer
-	(void)mini; // à supprimer
-	//ret = ft_exec_commands(mini, commands);
-	ft_putstr2(commands); // à supprimer
+	ret = get_cmds(mini, commands);
 	free(commands);
 	return (ret);
 }
