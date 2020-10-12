@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:27 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/09/30 21:04:28 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/08 13:19:33 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void			ft_freestrarr(char **s);
 int				ft_quote_open(t_quotes *quotes, char c);
 int				ft_check_multilines(char *str);
 char			**ft_split_quote(char *str, char *charset);
+void			ft_strdel(char **s);
 
 #endif
