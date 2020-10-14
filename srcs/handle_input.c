@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/08 16:23:31 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:34:23 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int		handle_input(t_minishell *mini)
 	char	**commands;
 	int		ret;
 
+	ret = 0;
 	if (!(commands = ft_split_quote(mini->input, ";")))
 		exit_shell(mini);
 	free(mini->input);
-	ret = get_cmds(mini, commands);
+	get_cmds(commands);
 	free(commands);
 	return (ret);
 }

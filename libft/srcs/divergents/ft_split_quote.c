@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:19:00 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/09/30 20:48:56 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:11:46 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/includes/libft.h"
 
-int		ft_strlen2(char **s)
-{
-	int len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-int		ft_is_in_str(char c, char *str)
+static int		ft_is_in_str_quote(char c, char *str)
 {
 	int	i;
 
@@ -36,7 +26,7 @@ int		ft_is_in_str(char c, char *str)
 	return (0);
 }
 
-int		ft_count_word(char *str, char *charset)
+static int		ft_count_word_quote(char *str, char *charset)
 {
 	int			i;
 	int			nb;
@@ -49,10 +39,10 @@ int		ft_count_word(char *str, char *charset)
 	while (str[i])
 	{
 		bl = 0;
-		while (ft_is_in_str(str[i], charset) && str[i])
+		while (ft_is_in_str_quote(str[i], charset) && str[i])
 			i++;
 		while ((ft_quote_open(&quotes, str[i])
-			|| !ft_is_in_str(str[i], charset)) && str[i])
+			|| !ft_is_in_str_quote(str[i], charset)) && str[i])
 		{
 			nb += (bl ? 0 : 1);
 			bl = 1;
@@ -62,7 +52,7 @@ int		ft_count_word(char *str, char *charset)
 	return (nb);
 }
 
-char	*ft_cut_word(char *str, char *charset, int *i)
+static char	*ft_cut_word_quote(char *str, char *charset, int *i)
 {
 	int			j;
 	int			len;
@@ -72,10 +62,10 @@ char	*ft_cut_word(char *str, char *charset, int *i)
 	j = 0;
 	len = 0;
 	ft_bzero(&quotes, sizeof(t_quotes));
-	while (ft_is_in_str(str[*i], charset) && str[*i])
+	while (ft_is_in_str_quote(str[*i], charset) && str[*i])
 		*i += 1;
 	while ((ft_quote_open(&quotes, str[*i + len])
-		|| !ft_is_in_str(str[*i + len], charset)) && str[*i + len])
+		|| !ft_is_in_str_quote(str[*i + len], charset)) && str[*i + len])
 		len++;
 	if (!(strnew = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
@@ -98,12 +88,12 @@ char	**ft_split_quote(char *str, char *charset)
 
 	i = 0;
 	j = 0;
-	dest_size = ft_count_word(str, charset);
+	dest_size = ft_count_word_quote(str, charset);
 	if (!(dest = malloc(sizeof(char *) * (dest_size + 1))))
 		return (NULL);
 	while (i < dest_size)
 	{
-		if (!(dest[i] = ft_cut_word(str, charset, &j)))
+		if (!(dest[i] = ft_cut_word_quote(str, charset, &j)))
 		{
 			ft_freestrarr(dest);
 			return (NULL);

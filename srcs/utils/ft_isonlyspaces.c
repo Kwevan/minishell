@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freexit.c                                          :+:      :+:    :+:   */
+/*   ft_isonlyspaces.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 17:07:44 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/12 10:34:22 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/10/12 15:00:05 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/10/13 11:38:57 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_shell(t_minishell *minishell)
+int		ft_isonlyspaces(char *str)
 {
-	if (minishell->env)
-		ft_freestrarr(minishell->env);
-	if (minishell->input)
-		free(minishell->input);
-	if (minishell)
-		minishell = NULL;
-	ft_putstr_fd("\n", 1);
-	exit(0);
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' || str[i] != '\t')
+			return (1);
+		i++;
+	}
+	return (0);
 }

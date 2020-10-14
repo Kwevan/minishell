@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 11:46:02 by afoulqui          #+#    #+#              #
-#    Updated: 2020/09/30 18:19:27 by afoulqui         ###   ########.fr        #
+#    Updated: 2020/10/13 17:15:33 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,13 +42,11 @@ CC		=	gcc
 
 CFLAG	=	-Wall -Werror -Wextra
 IFLAG	=	$(foreach dir, $(INC_DIR), -I $(dir) )
-LFLAG	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) )
+LFLAG	=	$(foreach lib, $(LIB), -l $(lib) ) $(foreach dir, $(LIB_DIR), -L $(dir) ) 
 
 # ----------------- #
 #     FUNCTIONS     #
 # ----------------- #
-
-all	:		$(NAME)
 
 $(OBJ_DIR)%.o:%.c $(HEADERS)		
 				@mkdir -p $(OBJ_DIR)
@@ -61,6 +59,8 @@ $(NAME):	install $(OBJ)
 				@echo "\n\t\033[36;1m*.............................*"
 				@echo "\n\t*    Compilation $(NAME)    *\t   \033[32;1m--------->>> \033[4;5mComplete\033[0m"
 				@echo "\n\t\033[036;1m*.............................*\033[0m"
+
+all	:		$(NAME)
 
 install :	
 				@make -C $(LIB_DIR)

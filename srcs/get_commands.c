@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:56:24 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/08 16:25:44 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/10/13 17:53:32 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ t_cmd		parse_pieces_cmds(char *cmd)
 	char	**pieces;
 	t_cmd	res;
 
-	pieces = ft_split(cmd, ' ');
+	pieces = ft_split_quote(cmd, " ");
 	free(cmd);
+	i = 0;
+	while (pieces[i])
+	{
+		pieces[i] = ft_removequotes(pieces[i]);
+		printf("\n%s\n", pieces[i]);
+		i++;
+	}
 	res.cmd = pieces[0];
 	res.argc = ft_countstrarr(pieces) + 1;
-	res.args = ft_calloc(sizeof(char *), res.argc);
-	if (res.args == NULL)
+	if (!(res.args = ft_calloc(sizeof(char *), res.argc)))
 		return (res);
 	i = 0;
 	while (pieces[i])
@@ -43,24 +49,27 @@ t_cmd		*parse_pipe_cmds(char *cmd)
 	t_cmd	*cmds;
 	t_cmd	last;
 
-	pipes = ft_split(cmd, "|");
+	pipes = ft_split_quote(cmd, "|");
 	free(cmd);
 	last.cmd = NULL;
 	count = ft_countstrarr(pipes) + 1;
-	cmds = ft_calloc(sizeof(t_cmd), count);
-	if (cmds == NULL)
+	if (!(cmds = ft_calloc(sizeof(t_cmd), count)))
 		return (NULL);
 	i = 0;
 	while (pipes[i])
 	{
-		cmds[i] = parse_pieces_cmds(pipes[i]);
+		if (ft_isonlyspaces(pipes[i]))
+			cmds[i] = parse_pieces_cmds(pipes[i]);
+		else
+			free(pipes[i]);
 		i++;
 	}
+	ft_freestrarr(pipes);
 	cmds[i] = last;
 	return (cmds);
 }
 
-void		get_cmds(t_minishell *minishell, char **commands)
+void		get_cmds(char **commands)
 {
 	int		i;
 	int		j;
@@ -78,4 +87,5 @@ void		get_cmds(t_minishell *minishell, char **commands)
 		}
 		free(new_cmd);
 	}
+	ft_freestrarr(commands);
 }
