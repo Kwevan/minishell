@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/07 16:01:18 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/13 16:36:49 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ typedef struct	s_minishell
 	int			ret;
 }				t_minishell;
 
+typedef struct s_cmd
+{
+	char		**args;
+	char		*cmd;
+	int			argc;
+}				t_cmd;
+
 /* ----------------- */
 /*     FUNCTIONS     */
 /* ----------------- */
@@ -56,6 +63,14 @@ void	get_input(t_minishell *mini);
 int		handle_input(t_minishell *mini);
 
 /*
+**	COMMANDS
+*/
+
+void	get_cmds(char **commands);
+t_cmd	*parse_pipe_cmds(char *cmd);
+t_cmd	parse_pieces_cmds(char *cmd);
+
+/*
 **	BUILTINS
 */
 
@@ -67,5 +82,8 @@ void	ft_pwd(t_minishell *mini);
 
 void	exit_shell(t_minishell *minishell);
 char	*ft_get_envv(char **env, char *var);
+int		ft_countstrarr(char **arr);
+int		ft_isonlyspaces(char *str);
+char	*ft_removequotes(char *str);
 
 #endif
