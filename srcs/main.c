@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:44:31 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:34:01 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int				main(int argc, char **argv, char **env)
 		get_input(&minishell);
 		handle_input(&minishell);
 	}
+	ft_putstr_fd("Bye\n", 1);
 	return (0);
 }

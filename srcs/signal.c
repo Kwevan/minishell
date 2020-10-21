@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:45:01 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/15 15:10:12 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:34:21 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	handle_ctrl_c(int signal, t_minishell *minishell)
 {
 	ft_putstr_fd('\n', 1);
 	if(!(minishell->pid))
+	{
+		// gestion du status à faire
+		minishell->ret = 130;
 		ft_prompt_msg(minishell);
+	}
 	else
 		kill(minishell->pid, signal);	
 }
 
-void	handle_ctrl_backlash(int signal, t_minishell *minishell)
+void	handle_ctrl_bl(int signal, t_minishell *minishell)
 {
 	char	*str_signal;
 
@@ -29,6 +33,8 @@ void	handle_ctrl_backlash(int signal, t_minishell *minishell)
 	if (minishell->pid)
 	{
 		kill(minishell->pid, signal);
+		// gestion du status à faire
+		minishell->ret = 131;
 		ft_putstr_fd("\nQuit : ", 1);
 		ft_putstr_fd(str_signal, 1);
 		ft_putstr_fd("\n", 1);
@@ -40,6 +46,6 @@ void	handle_signal(t_minishell *minishell)
 {
 	if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
 		ft_putstr_fd("SIGINT error", 1);
-	if (signal(SIGQUIT, &handle_ctrl_backlash) == SIG_ERR)
+	if (signal(SIGQUIT, &handle_ctrl_bl) == SIG_ERR)
 		ft_putstr_fd("SIGQUIT error", 1);
 }
