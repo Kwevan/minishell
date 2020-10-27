@@ -6,16 +6,18 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/13 16:36:49 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:01:11 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* ----------------- */
-/*     LIBRAIRIES    */
-/* ----------------- */
+/*
+** -----------------
+**     LIBRAIRIES
+** -----------------
+*/
 
 # include <unistd.h>
 # include <sys/types.h>
@@ -30,9 +32,11 @@
 # include <limits.h>
 # include "libft.h"
 
-/* ----------------- */
-/*     STRUCTURES    */
-/* ----------------- */
+/*
+** -----------------
+**     STRUCTURES
+** -----------------
+*/
 
 typedef struct	s_minishell
 {
@@ -43,47 +47,62 @@ typedef struct	s_minishell
 	int			ret;
 }				t_minishell;
 
-typedef struct s_cmd
+typedef struct	s_cmd
 {
 	char		**args;
 	char		*cmd;
 	int			argc;
 }				t_cmd;
 
-/* ----------------- */
-/*     FUNCTIONS     */
-/* ----------------- */
+/*
+** -----------------
+**     FUNCTIONS
+** -----------------
+*/
 
 /*
 **	ROOT
 */
 
-void	ft_prompt_msg(t_minishell *mini);
-void	get_input(t_minishell *mini);
-int		handle_input(t_minishell *mini);
+void			ft_prompt_msg(t_minishell *mini);
+void			get_input(t_minishell *mini);
+int				handle_input(t_minishell *mini);
 
 /*
 **	COMMANDS
 */
 
-void	get_cmds(char **commands);
-t_cmd	*parse_pipe_cmds(char *cmd);
-t_cmd	parse_pieces_cmds(char *cmd);
+void			get_cmds(char **commands);
+t_cmd			*parse_pipe_cmds(char *cmd);
+t_cmd			parse_pieces_cmds(char *cmd);
+
+/*
+** EXEC
+*/
+
+void	ft_exec_commands(t_minishell *mini, char **commands);
 
 /*
 **	BUILTINS
 */
 
-void	ft_pwd(t_minishell *mini);
+void			ft_pwd(t_minishell *mini);
+
+/*
+**  PARSER
+*/
+
+char			**ft_parse(t_minishell *mini, char **words);
+int				ft_strlen_quotes(char *word);
 
 /*
 **	UTILS
 */
 
-void	exit_shell(t_minishell *minishell);
-char	*ft_get_envv(char **env, char *var);
-int		ft_countstrarr(char **arr);
-int		ft_isonlyspaces(char *str);
-char	*ft_removequotes(char *str);
+void			exit_shell(t_minishell *minishell);
+char			*ft_get_envv(char **env, char *var);
+int				ft_countstrarr(char **arr);
+int				ft_isonlyspaces(char *str);
+char			*ft_removequotes(char *str);
 
 #endif

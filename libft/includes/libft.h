@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:27 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/08 13:19:33 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/26 21:53:45 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_quotes
 {
 	int q;
 	int dq;
+	int bs;
 }				t_quotes;
 
 void			*ft_memset(void *s, int c, size_t n);
