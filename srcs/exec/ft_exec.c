@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/27 10:57:21 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:12:02 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 			(void)cmd;
 			splitted_cmd = ft_split2(commands[i], " "); // ou redir
 			char **new = ft_parse(mini, splitted_cmd);
-			(void)new;
-			ft_putstr2(new);
-			// here ft_exec_command(mini, new);
+			ft_exec_command(mini, new);
 		}
 		i++;
 	}

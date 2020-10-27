@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/27 11:01:11 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:10:59 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_cmd			parse_pieces_cmds(char *cmd);
 */
 
 void	ft_exec_commands(t_minishell *mini, char **commands);
+void	ft_exec_command(t_minishell *mini, char **command);
 
 /*
 **	BUILTINS
