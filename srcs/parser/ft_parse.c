@@ -6,13 +6,13 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/25 14:30:49 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 19:36:04 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_remove_quotes(char **word)
+void	ft_remove_quotes(t_minishell *mini, char **word)
 {
 	int			i;
 	t_quotes	quotes;
@@ -21,7 +21,7 @@ void	ft_remove_quotes(char **word)
 
 	len = ft_strlen_quotes(*word);
 	if (!(res = ft_strnew(len + 1)))
-		return ;//exit_this_damn_shell
+		exit_shell(mini);
 	len = 0;
 	ft_bzero(&quotes, sizeof(t_quotes));
 	i = 0;
@@ -50,8 +50,8 @@ void	replace_var(t_minishell *mini, char *word,
 	var_name = ft_strndup(word, var_name_len);
 	var = ft_get_envv(mini->env, var_name);
 	*parsed = ft_strjoin(*parsed, var);
-	//if (!var_name || !var || !*parsed)
-	//exit_this_damn_shell
+	if (!var_name || !*parsed)
+		exit_shell(mini);
 }
 
 void	ft_add_char(t_minishell *mini, t_quotes *quotes, char c, char **parsed)
@@ -108,7 +108,7 @@ char	**ft_parse(t_minishell *mini, char **words)
 	{
 		if (ft_strchr(words[i], '$'))
 			ft_parse_var(mini, &quotes, &words[i]);
-		ft_remove_quotes(&words[i]);
+		ft_remove_quotes(mini, &words[i]);
 		i++;
 	}
 	return (words);

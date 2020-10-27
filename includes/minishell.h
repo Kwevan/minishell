@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/27 19:28:37 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 19:48:24 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ void			ft_pwd(t_minishell *mini);
 
 char			**ft_parse(t_minishell *mini, char **words);
 int				ft_strlen_quotes(char *word);
+
+/*
+**  REDIR
+*/
+
+void			ft_pipe_redir(t_minishell *mini, char **cmd);
 
 /*
 **	UTILS

@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/27 11:12:02 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 19:50:38 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 	int		i;
 	char	**splitted_cmd;
 	char	**new_cmds;
-	char	*cmd;
+	char	**new;
 
 	i = 0;
 	new_cmds = NULL;
@@ -25,22 +25,19 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 	{
 		if (strchr(commands[i], '|') || strchr(commands[i], '>'))
 		{
-			ft_putstr_fd("todo", 1);
-			//new_cmds = ft_split2(commands[i], "|"); // ou redir
-			//ft_pipe(mini, new_cmds);
+			new_cmds = ft_split2(commands[i], "|");
+			ft_pipe_redir(mini, new_cmds);
 		}
 		else
 		{
 			if (ft_check_multilines(commands[i]))
 			{
-				ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);	
+				ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);
 				ft_freestrarr(commands);
-				//var $?
 				return ;
 			}
-			(void)cmd;
-			splitted_cmd = ft_split2(commands[i], " "); // ou redir
-			char **new = ft_parse(mini, splitted_cmd);
+			splitted_cmd = ft_split2(commands[i], " ");
+			new = ft_parse(mini, splitted_cmd);
 			ft_exec_command(mini, new);
 		}
 		i++;

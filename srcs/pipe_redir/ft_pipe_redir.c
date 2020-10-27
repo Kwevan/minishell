@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_input.c                                     :+:      :+:    :+:   */
+/*   ft_pipe_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/27 19:38:31 by kgouacid         ###   ########.fr       */
+/*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
+/*   Updated: 2020/10/27 19:50:09 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		handle_input(t_minishell *mini)
+void	ft_pipe_redir(t_minishell *mini, char **cmd)
 {
-	char	**commands;
-	int		ret;
-
-	ret = 0;
-	if (!(commands = ft_split_quote(mini->input, ";")))
-		exit_shell(mini);
-	free(mini->input);
-	ft_exec_commands(mini, commands);
-	return (ret);
+	(void)mini;
+	(void)cmd;
 }
