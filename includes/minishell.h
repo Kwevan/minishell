@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/27 15:57:46 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/10/27 19:28:37 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ t_cmd			parse_pieces_cmds(char *cmd);
 ** EXEC
 */
 
-void		ft_exec_commands(t_minishell *mini, char **commands);
-void		ft_exec_command(t_minishell *mini, char **command);
-int			exec_bin(t_minishell *minishell, char **command);
-int			exec_builtin(t_minishell *minishell, char **command);
+void			ft_exec_commands(t_minishell *mini, char **commands);
+void			ft_exec_command(t_minishell *mini, char **command);
+int				exec_bin(t_minishell *minishell, char **command);
+int				exec_builtin(t_minishell *minishell, char **command);
 
 /*
 **	BUILTINS
@@ -107,7 +107,6 @@ int				ft_strlen_quotes(char *word);
 void			exit_shell(t_minishell *minishell);
 char			*ft_get_envv(char **env, char *var);
 int				ft_countstrarr(char **arr);
-int				ft_isonlyspaces(char *str);
 char			*ft_removequotes(char *str);
 
 #endif
