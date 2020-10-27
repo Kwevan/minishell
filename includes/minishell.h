@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/27 11:10:59 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:57:46 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct	s_minishell
 	int			has_pipe;
 	int			tube[3];
 	int			ret;
+	pid_t		pid;
+	int			status;
 }				t_minishell;
 
 typedef struct	s_cmd
@@ -80,8 +82,10 @@ t_cmd			parse_pieces_cmds(char *cmd);
 ** EXEC
 */
 
-void	ft_exec_commands(t_minishell *mini, char **commands);
-void	ft_exec_command(t_minishell *mini, char **command);
+void		ft_exec_commands(t_minishell *mini, char **commands);
+void		ft_exec_command(t_minishell *mini, char **command);
+int			exec_bin(t_minishell *minishell, char **command);
+int			exec_builtin(t_minishell *minishell, char **command);
 
 /*
 **	BUILTINS
