@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/27 19:36:04 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:41:06 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	replace_var(t_minishell *mini, char *word,
 	char *var;
 
 	var_name = ft_strndup(word, var_name_len);
-	var = ft_get_envv(mini->env, var_name);
+	var = ft_get_envv(mini, mini->env, var_name);
 	*parsed = ft_strjoin(*parsed, var);
 	if (!var_name || !*parsed)
 		exit_shell(mini);
@@ -82,16 +82,14 @@ void	ft_parse_var(t_minishell *mini, t_quotes *quotes, char **word)
 			&& ((*word)[i] == '$')))
 		{
 			j = ++i;
-			while ((*word)[j] && (ft_isalnum((*word)[j]) || (*word)[j] == '_'))
+			while ((*word)[j] && (ft_isalnum((*word)[j])
+				|| (ft_index("_?", (*word)[j]) + 1)))
 				j++;
 			replace_var(mini, (*word) + i, j - i, &parsed);
 			i = j;
 		}
 		else
-		{
-			ft_add_char(mini, quotes, (*word)[i], &parsed);
-			i++;
-		}
+			ft_add_char(mini, quotes, (*word)[i++], &parsed);
 	}
 	free(*word);
 	*word = parsed;

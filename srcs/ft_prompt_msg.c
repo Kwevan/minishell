@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/07 14:27:49 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:39:51 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_prompt_msg(t_minishell *mini)
 {
 	char	*cwd;
 
-	cwd = ft_get_envv(mini->env, "PWD");
+	cwd = ft_get_envv(mini, mini->env, "PWD");
 	if (cwd)
 	{
 		ft_putstr_fd(cwd, 2);

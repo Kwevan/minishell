@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:52:03 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/05 13:13:23 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:41:23 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pwd(t_minishell *mini)
 {
 	char	*cwd;
 
-	cwd = ft_get_envv(mini->env, "PWD");
+	cwd = ft_get_envv(mini, mini->env, "PWD");
 	if (cwd)
 	{
 		ft_putendl_fd(cwd, 1);

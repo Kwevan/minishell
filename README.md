@@ -8,13 +8,22 @@
 ## Tests
 
 
+# quotes
+
 quotes with | ; >
 
 ex : echo "ls -la; echo ok"
 
 open quotes ' or "
 
+# \
+todo
+
 ## echo 
+
+echo 
+
+echo -n
 
 echo -n -n -n -n ok
 
@@ -22,7 +31,6 @@ echo -n -n -n -n
 
 echo "-n ok"
 
-echo 
 
 echo -n
 
@@ -30,11 +38,6 @@ echo "slt" \; "sava"
 
 multi ~
 
-cat ~/anything | cat ~/anything
-
-/bin/ls ?
-
-and all others bin path exec
 
 env -i ./minishell
 
@@ -47,33 +50,52 @@ env -i ./minishell
 cd $HOME
 cd $HOME/Desktop
 
-cd $HOMEanything je comprends pas pk il ignore le anything
+cd $HOMEanything (its like cd with no args )
 
 cd > ok.txt
 
 cd folder; rm -rf folder; pwd
 
-echo ls | ./minishell pour la gestion erreur lecture
+# exit
+todo
 
 # VAR
 
+echo $HOME
+
+echo "$HOME"
+
+echo '$HOME'
+
+echo abc$HOME
+
+echo $HOMEweird
+
+echo ok && echo $?
+
+cd nofolder && echo $?
 
 #echo $_
 
 echo $SHLVL
+
+$? (error)
 
 # executable
 
 /bin/ls
 
 "ls"
+
 'ls'
 
 unset PATH puis ls
 
+cat ~/anything | cat ~/anything
 
+ls ; cd malekazelkl ; echo ok
 
-### pipe
+### pipes and redir
 
 
 | less
@@ -92,3 +114,5 @@ unset PATH puis ls
 # pas vraiment réfléchi
 
 ls | | wc = segfault
+
+echo ls | ./minishell pour la gestion erreur lecture
