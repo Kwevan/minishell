@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isonlyspaces.c                                  :+:      :+:    :+:   */
+/*   ft_pipe_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 15:00:05 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/13 11:38:57 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
+/*   Updated: 2020/10/27 19:50:09 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_isonlyspaces(char *str)
+void	ft_pipe_redir(t_minishell *mini, char **cmd)
 {
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' || str[i] != '\t')
-			return (1);
-		i++;
-	}
-	return (0);
+	(void)mini;
+	(void)cmd;
 }

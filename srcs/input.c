@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/08 14:13:22 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/27 19:39:22 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ char	*replace_tilde(t_minishell *mini, char *home_path, int i)
 
 void	parse_input(t_minishell *mini, char **env)
 {
-	int		i;
-	char	*ret;
-	t_quotes quotes;
+	int			i;
+	char		*ret;
+	t_quotes	quotes;
 
 	ft_bzero(&quotes, sizeof(t_quotes));
 	ret = NULL;
 	i = 0;
 	while (mini->input[i])
 	{
-		if ( !ft_quote_open(&quotes, mini->input[i]) && (mini->input[i] == '~'))
+		if (!ft_quote_open(&quotes, mini->input[i]) && (mini->input[i] == '~'))
 		{
 			ret = replace_tilde(mini, ft_get_envv(env, "HOME"), i);
 			mini->input = ret;
