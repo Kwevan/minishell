@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/28 12:41:06 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:18:32 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_remove_quotes(t_minishell *mini, char **word)
 
 	len = ft_strlen_quotes(*word);
 	if (!(res = ft_strnew(len + 1)))
-		exit_shell(mini);
+		exit_shell(mini, 1);
 	len = 0;
 	ft_bzero(&quotes, sizeof(t_quotes));
 	i = 0;
@@ -51,7 +51,7 @@ void	replace_var(t_minishell *mini, char *word,
 	var = ft_get_envv(mini, mini->env, var_name);
 	*parsed = ft_strjoin(*parsed, var);
 	if (!var_name || !*parsed)
-		exit_shell(mini);
+		exit_shell(mini, 1);
 }
 
 void	ft_add_char(t_minishell *mini, t_quotes *quotes, char c, char **parsed)

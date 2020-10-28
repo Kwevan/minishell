@@ -57,7 +57,18 @@ cd > ok.txt
 cd folder; rm -rf folder; pwd
 
 # exit
-todo
+
+
+exit
+
+exit 1
+
+exit abcd
+
+exit 1 1
+
+exit  150
+
 
 # VAR
 

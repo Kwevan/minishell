@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/13 17:27:51 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:18:03 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void		init_env(t_minishell *minishell, char **env)
 	len = ft_strlen2(env);
 	minishell->env = (char **)ft_calloc(sizeof(char *), (len + 1));
 	if (!(minishell->env))
-		exit_shell(minishell);
+		exit_shell(minishell, 1);
 	i = 0;
 	while (env[i])
 	{
 		minishell->env[i] = ft_strdup(env[i]);
 		if (!(minishell->env[i]))
-			exit_shell(minishell);
+			exit_shell(minishell, 1);
 		i++;
 	}
 }
