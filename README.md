@@ -61,6 +61,8 @@ todo
 
 # VAR
 
+echo $
+
 echo $HOME
 
 echo "$HOME"
@@ -116,3 +118,12 @@ ls ; cd malekazelkl ; echo ok
 ls | | wc = segfault
 
 echo ls | ./minishell pour la gestion erreur lecture
+
+
+# good to know 
+
+
+
+max exit code = (LONG_MAX) +9223372036854775807
+
+exit 9223372036854775808
