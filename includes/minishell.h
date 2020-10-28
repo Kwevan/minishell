@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/27 19:48:24 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:33:26 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int				exec_builtin(t_minishell *minishell, char **command);
 */
 
 void			ft_pwd(t_minishell *mini);
+void			ft_echo(char **cmd);
 
 /*
 **  PARSER
