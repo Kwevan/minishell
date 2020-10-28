@@ -49,7 +49,6 @@ int		exec_bin(t_minishell *minishell, char **command)
 void		ft_exec_command(t_minishell *minishell, char **command)
 {
 	ft_putstr_fd("\n[ starting ft_exec_command ]\n", 1);
-	ft_putstr2(command);
 	if (exec_builtin(minishell, command))
 		ft_putstr_fd("", 1);
 	else if (exec_bin(minishell, command))

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
 /*   Updated: 2020/10/28 12:41:06 by kgouacid         ###   ########.fr       */
@@ -76,10 +76,10 @@ void	ft_parse_var(t_minishell *mini, t_quotes *quotes, char **word)
 
 	parsed = ft_strdup("");
 	i = 0;
-	while ((*word)[i])
+	while ((*word)[i] && (*word)[i + 1])
 	{
 		if (!(quotes->dq) && ((quotes->q || !ft_quote_open(quotes, (*word)[i]))
-			&& ((*word)[i] == '$')))
+			&& ((*word)[i] == '$')) && ((*word)[i + 1] != '\"'))
 		{
 			j = ++i;
 			while ((*word)[j] && (ft_isalnum((*word)[j])
