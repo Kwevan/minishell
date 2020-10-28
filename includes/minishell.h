@@ -31,6 +31,7 @@ typedef struct	s_minishell
 {
 	char		**env;
 	char		*input;
+	char		**commands;
 	int			has_pipe;
 	int			tube[3];
 	int			ret;
