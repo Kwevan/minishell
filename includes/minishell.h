@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/30 10:36:42 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/28 15:33:26 by afoulqui         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -112,7 +101,7 @@ void			ft_pipe_redir(t_minishell *mini, char **cmd);
 */
 
 void			exit_shell(t_minishell *minishell);
-char			*ft_get_envv(char **env, char *var);
+char			*ft_get_envv(t_minishell *mini, char **env, char *var);
 int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);
 
