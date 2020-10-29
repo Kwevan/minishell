@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/28 16:42:00 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:31:56 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int			exec_builtin(t_minishell *minishell, char **command)
 		ft_putstr_fd("cd command", 1);
 	else if (!ft_strcmp(command[0], "echo"))
 		ft_echo(command);
+	else if (!ft_strcmp(command[0], "env"))
+		ft_putstr2(minishell->env);
 	else if (!ft_strcmp(command[0], "pwd"))
 		ft_pwd(minishell);
 	else if (!ft_strcmp(command[0], "exit"))
@@ -48,10 +50,8 @@ int		exec_bin(t_minishell *minishell, char **command)
 
 void		ft_exec_command(t_minishell *minishell, char **command)
 {
-	ft_putstr_fd("\n[ starting ft_exec_command ]\n", 1);
 	if (exec_builtin(minishell, command))
 		ft_putstr_fd("", 1);
 	else if (exec_bin(minishell, command))
 		ft_putstr_fd("", 1);
-	ft_putstr_fd("\n[ end of ft_exec_command ]\n", 1);
 }

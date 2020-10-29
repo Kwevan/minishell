@@ -31,6 +31,7 @@ typedef struct	s_minishell
 {
 	char		**env;
 	char		*input;
+	char		**commands;
 	int			has_pipe;
 	int			tube[3];
 	int			ret;
@@ -82,6 +83,7 @@ int				exec_builtin(t_minishell *minishell, char **command);
 
 void			ft_pwd(t_minishell *mini);
 void			ft_echo(char **cmd);
+void			ft_exit(t_minishell *mini, char **args);
 
 /*
 **  PARSER
@@ -100,7 +102,7 @@ void			ft_pipe_redir(t_minishell *mini, char **cmd);
 **	UTILS
 */
 
-void			exit_shell(t_minishell *minishell);
+void			exit_shell(t_minishell *minishell, int status);
 char			*ft_get_envv(t_minishell *mini, char **env, char *var);
 int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);

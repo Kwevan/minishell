@@ -31,33 +31,43 @@ echo -n -n -n -n
 
 echo "-n ok"
 
-
 echo -n
 
 echo "slt" \; "sava"
 
-multi ~
 
+# parser
 
-env -i ./minishell
+echo ~~
 
-
-?='salut' (special char env variable)
+echo ~
 
 
 # cd
 
 cd $HOME
+
 cd $HOME/Desktop
 
 cd $HOMEanything (its like cd with no args )
 
 cd > ok.txt
 
-cd folder; rm -rf folder; pwd
+cd folder; rm -rf ../folder; pwd
 
 # exit
-todo
+
+
+exit
+
+exit 1
+
+exit abcd
+
+exit 1 1
+
+exit  150
+
 
 # VAR
 
