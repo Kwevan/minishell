@@ -107,6 +107,8 @@ cat ~/anything | cat ~/anything
 
 ls ; cd malekazelkl ; echo ok
 
+./minishell (x2)
+
 ### pipes and redir
 
 

@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/28 23:31:56 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/29 17:21:54 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			exec_builtin(t_minishell *minishell, char **command)
+int		exec_builtin(t_minishell *minishell, char **command)
 {
 	if (!ft_strcmp(command[0], "cd"))
 		ft_putstr_fd("cd command", 1);
@@ -31,6 +31,10 @@ int			exec_builtin(t_minishell *minishell, char **command)
 
 int		exec_bin(t_minishell *minishell, char **command)
 {
+	char *bin_path;
+
+	ft_putstr_fd(command[0], 1);
+	bin_path = ft_get_bin_path(minishell, command[0]);
 	minishell->pid = fork();
 	if (minishell->pid == -1)
 		perror("fork");
@@ -41,17 +45,15 @@ int		exec_bin(t_minishell *minishell, char **command)
 	}
 	else
 	{
-		if (execve(command[0], command, NULL) == -1)
+		if (execve(bin_path, command, minishell->env) == -1)
 			perror("shell");
 		exit(EXIT_FAILURE);
 	}
 	return (0);
 }
 
-void		ft_exec_command(t_minishell *minishell, char **command)
+void	ft_exec_command(t_minishell *minishell, char **command)
 {
-	if (exec_builtin(minishell, command))
-		ft_putstr_fd("", 1);
-	else if (exec_bin(minishell, command))
-		ft_putstr_fd("", 1);
+	if (!exec_builtin(minishell, command))
+		exec_bin(minishell, command);
 }
