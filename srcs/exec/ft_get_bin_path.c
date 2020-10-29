@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:44:09 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/29 17:17:55 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/29 17:49:19 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@ char	*ft_get_bin_path(t_minishell *mini, char *bin)
 
 	i = 0;
 	path = ft_get_envv(mini, mini->env, "PATH");
-	folders = ft_split(path, ':');
+	if (!(folders = ft_split(path, ':')))
+		exit_shell(mini, EXIT_FAILURE);
 	while (folders[i])
 	{
-		bin_path = ft_strjoin2(folders[i], "/", bin);
+		if (!(bin_path = ft_strjoin2(folders[i], "/", bin)))
+		{
+			ft_freestrarr(folders);
+			exit_shell(mini, EXIT_FAILURE);
+		}
 		if (!stat(bin_path, &buf))
 			break ;
-		free(bin_path);
-		bin_path = NULL;
+		ft_strdel(&bin_path);
 		i++;
 	}
 	ft_freestrarr(folders);
-	if (!bin_path)
-		bin_path = ft_strdup(bin);
-	return (bin_path);
+	return (bin_path ? bin_path : ft_strdup(bin));
 }

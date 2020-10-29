@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/29 17:21:54 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/29 18:17:57 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ int		exec_bin(t_minishell *minishell, char **command)
 {
 	char *bin_path;
 
-	ft_putstr_fd(command[0], 1);
 	bin_path = ft_get_bin_path(minishell, command[0]);
 	minishell->pid = fork();
 	if (minishell->pid == -1)
-		perror("fork");
+		ft_putstr_fd(strerror(errno), 1);
 	else if (minishell->pid > 0)
 	{
 		waitpid(minishell->pid, &minishell->status, 0);
@@ -46,9 +45,11 @@ int		exec_bin(t_minishell *minishell, char **command)
 	else
 	{
 		if (execve(bin_path, command, minishell->env) == -1)
-			perror("shell");
+			ft_putstr_fd(strerror(errno), 1);
+		ft_strdel(&bin_path);
 		exit(EXIT_FAILURE);
 	}
+	ft_strdel(&bin_path);
 	return (0);
 }
 
