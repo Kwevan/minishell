@@ -85,6 +85,7 @@ char			*ft_get_bin_path(t_minishell *mini, char *bin);
 void			ft_pwd(t_minishell *mini);
 void			ft_echo(char **cmd);
 void			ft_exit(t_minishell *mini, char **args);
+void			ft_cd(t_minishell *minishell, char **cmd);
 
 /*
 **  PARSER
