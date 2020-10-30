@@ -107,6 +107,11 @@ cat ~/anything | cat ~/anything
 
 ls ; cd malekazelkl ; echo ok
 
+./minishell (x2)
+
+cp  minishell mini; chmod -x mini; ./mini
+
+
 ### pipes and redir
 
 

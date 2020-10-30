@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/28 17:18:32 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/29 17:23:08 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	**ft_parse(t_minishell *mini, char **words)
 	t_quotes	quotes;
 
 	ft_bzero(&quotes, sizeof(t_quotes));
-	i = 1;
+	i = 0;
 	while (words[i])
 	{
 		if (ft_strchr(words[i], '$'))

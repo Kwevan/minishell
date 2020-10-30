@@ -76,6 +76,7 @@ void			ft_exec_commands(t_minishell *mini, char **commands);
 void			ft_exec_command(t_minishell *mini, char **command);
 int				exec_bin(t_minishell *minishell, char **command);
 int				exec_builtin(t_minishell *minishell, char **command);
+char			*ft_get_bin_path(t_minishell *mini, char *bin);
 
 /*
 **	BUILTINS
