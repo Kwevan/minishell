@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/29 17:23:08 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/10/31 01:49:40 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ void	replace_var(t_minishell *mini, char *word,
 	char *var;
 
 	var_name = ft_strndup(word, var_name_len);
-	var = ft_get_envv(mini, mini->env, var_name);
-	*parsed = ft_strjoin(*parsed, var);
+	if (!var_name_len || var_name[0] == ' ')
+		*parsed = ft_strjoin(*parsed, "$");
+	else
+	{
+		var = ft_get_envv(mini, mini->env, var_name);
+		*parsed = ft_strjoin(*parsed, var);
+	}
 	if (!var_name || !*parsed)
 		exit_shell(mini, 1);
+	free(var_name);
 }
 
 void	ft_add_char(t_minishell *mini, t_quotes *quotes, char c, char **parsed)
@@ -76,10 +82,9 @@ void	ft_parse_var(t_minishell *mini, t_quotes *quotes, char **word)
 
 	parsed = ft_strdup("");
 	i = 0;
-	while ((*word)[i] && (*word)[i + 1])
+	while ((*word)[i] && (ft_quote_open(quotes, (*word)[i]) < 10))
 	{
-		if (!(quotes->dq) && ((quotes->q || !ft_quote_open(quotes, (*word)[i]))
-			&& ((*word)[i] == '$')) && ((*word)[i + 1] != '\"'))
+		if (((*word)[i] == '$') && (!quotes->nx && !quotes->dq))
 		{
 			j = ++i;
 			while ((*word)[j] && (ft_isalnum((*word)[j])

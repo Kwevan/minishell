@@ -17,7 +17,11 @@ ex : echo "ls -la; echo ok"
 open quotes ' or "
 
 # \
-todo
+
+echo \;
+echo \\
+echo \"
+
 
 ## echo 
 
