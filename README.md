@@ -1,6 +1,11 @@
 # minishell
 
 
+echo ok | ./minishell
+
+1 ça avord car double free
+
+2 pas sur de savoir ce que la commande fait
 
 
 
@@ -8,7 +13,7 @@
 ## Tests
 
 
-# quotes
+### quotes and \
 
 quotes with | ; >
 
@@ -16,11 +21,16 @@ ex : echo "ls -la; echo ok"
 
 open quotes ' or "
 
-# \
+
 
 echo \;
 echo \\
 echo \"
+echo \\$HOME
+echo \\\\$HOME
+echo "\\$HOME"
+echo '\\$HOME'
+echo "\""
 
 
 ## echo 
@@ -78,6 +88,8 @@ exit  150
 echo $
 
 echo $HOME
+
+echo $HOME$HOME$HOME
 
 echo "$HOME"
 
@@ -140,7 +152,6 @@ echo ls | ./minishell pour la gestion erreur lecture
 
 
 # good to know 
-
 
 
 max exit code = (LONG_MAX) +9223372036854775807
