@@ -39,13 +39,6 @@ typedef struct	s_minishell
 	int			status;
 }				t_minishell;
 
-typedef struct	s_cmd
-{
-	char		**args;
-	char		*cmd;
-	int			argc;
-}				t_cmd;
-
 /*
 ** -----------------
 **     FUNCTIONS
@@ -61,12 +54,11 @@ void			get_input(t_minishell *mini);
 int				handle_input(t_minishell *mini);
 
 /*
-**	COMMANDS
+**	ENV
 */
 
-void			get_cmds(char **commands);
-t_cmd			*parse_pipe_cmds(char *cmd);
-t_cmd			parse_pieces_cmds(char *cmd);
+void			add_env(t_minishell *minishell, char *var);
+void			remove_env(t_minishell *minishell, char *var, int len);
 
 /*
 ** EXEC

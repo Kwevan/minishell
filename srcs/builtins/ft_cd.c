@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:40:22 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/30 17:42:30 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:57:47 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char		*get_path_cd(t_minishell *minishell, char *cmd)
 void			ft_cd(t_minishell *minishell, char **cmd)
 {
 	int		argc;
+	char	cwd[4096];
 	char	*path;
 
 	argc = ft_countstrarr(cmd);
@@ -41,5 +42,9 @@ void			ft_cd(t_minishell *minishell, char **cmd)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
 	else
-		return ;
+	{
+		getcwd(cwd, 4096);
+		path = ft_strjoin("PWD=", cwd);
+		add_env(minishell, path);
+	}
 }
