@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 23:38:02 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/07 23:58:43 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		close(p[0]);
 		splitted = ft_split_quote(cmd, " ");
 		parsed = ft_parse(mini, splitted);
-		bin_path = ft_get_bin_path(mini, parsed[0]);
 		if (!exec_builtin(mini, parsed))
 		{
 			bin_path = ft_get_bin_path(mini, parsed[0]);
