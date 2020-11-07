@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 21:01:43 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/07 23:38:02 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 	i = 0;
 	pipe(p);
 	if ((mini->pid = fork()) == -1)
-		ft_putstr_fd(strerror(errno), 1);
+		ft_putstr_fd(strerror(errno), 2);
 	if (mini->pid == 0)
 	{
 		dup2(*fd_in, 0);
@@ -36,8 +36,8 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		if (!exec_builtin(mini, parsed))
 		{
 			bin_path = ft_get_bin_path(mini, parsed[0]);
-			if (execve(bin_path, parsed, mini->env) == -1)
-				ft_putstr_fd(strerror(errno), 1);
+			if ((execve(bin_path, parsed, mini->env)) == -1)
+				ft_putstr_fd(strerror(errno), 2);
 			ft_strdel(&bin_path);
 		}
 		exit(EXIT_SUCCESS);
