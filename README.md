@@ -56,6 +56,13 @@ echo ~~
 
 echo ~
 
+echo ok \| wc 
+
+echo ok "|" wc 
+
+echo ok '|' wc 
+
+
 
 # cd
 
@@ -129,6 +136,9 @@ cp  minishell mini; chmod -x mini; ./mini
 
 
 ### pipes and redir
+
+
+
 
 
 | less

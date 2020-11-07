@@ -16,17 +16,17 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 {
 	int		i;
 	char	**splitted_cmd;
-	char	**new_cmds;
+//	char	**new_cmds;
 	char	**new;
 
 	i = 0;
-	new_cmds = NULL;
+//	new_cmds = NULL;
 	while (commands[i])
 	{
 		if (strchr(commands[i], '|') || strchr(commands[i], '>'))
 		{
-			new_cmds = ft_split2(commands[i], "|");
-			ft_pipe_redir(mini, new_cmds);
+			//new_cmds = ft_split2(commands[i], "|");
+			ft_pipe_redir(mini, commands[i]);
 		}
 		else
 		{
@@ -36,7 +36,7 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 				ft_freestrarr(commands);
 				return ;
 			}
-			splitted_cmd = ft_split2(commands[i], " ");
+			splitted_cmd = ft_split_quote(commands[i], " ");
 			new = ft_parse(mini, splitted_cmd);
 			ft_exec_command(mini, new);
 		}
