@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 11:46:02 by afoulqui          #+#    #+#              #
-#    Updated: 2020/10/13 17:15:33 by afoulqui         ###   ########.fr        #
+#    Updated: 2020/11/07 20:08:41 by kwe              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,5 +95,11 @@ fclean:		clean
 			@echo "\033[36;1m $(NAME) ------>>  fclean\033[0m\n"
 
 re:			fclean all
+
+run:		all
+				./$(NAME)
+
+rerun:		re
+				./${NAME}
 
 .PHONY:		all clean fclean re

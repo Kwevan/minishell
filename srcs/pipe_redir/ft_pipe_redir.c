@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 19:47:25 by yay              ###   ########.fr       */
+/*   Updated: 2020/11/07 21:01:43 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,48 @@
 void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 {
 	int		p[2];
-	pid_t	pid;
 	int		i;
-	
-(void)mini;(void)fd_in;(void)last;
+	char	*bin_path;
+	char	**splitted;
+	char	**parsed;
+
 	i = 0;
 	pipe(p);
-	if ((pid = fork()) == -1)
-		exit_shell(mini, 1);//faddut free commands ou simplement strerror puis quitter la boucle de pipe... flemme
-	if (pid == 0)// 0 == child
+	if ((mini->pid = fork()) == -1)
+		ft_putstr_fd(strerror(errno), 1);
+	if (mini->pid == 0)
 	{
 		dup2(*fd_in, 0);
 		if (!last)
 			dup2(p[1], 1);
 		close(p[0]);
-		
-		char **splitted = ft_split_quote(cmd, " ");
-		char  **parsed = ft_parse(mini, splitted);
-		ft_exec_command(mini, parsed);
-		exit (0);
+		splitted = ft_split_quote(cmd, " ");
+		parsed = ft_parse(mini, splitted);
+		bin_path = ft_get_bin_path(mini, parsed[0]);
+		if (!exec_builtin(mini, parsed))
+		{
+			bin_path = ft_get_bin_path(mini, parsed[0]);
+			if (execve(bin_path, parsed, mini->env) == -1)
+				ft_putstr_fd(strerror(errno), 1);
+			ft_strdel(&bin_path);
+		}
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		wait(&mini->pid);
 		close(p[1]);
 		dup2(p[0], *fd_in);
 		close(p[0]);
 	}
-
-	while (cmd[i])
-	{
-		ft_putchar_fd(cmd[i], 1);
-		i++;
-	}
-
-	
 }
 
 void	ft_pipe_redir(t_minishell *mini, char *cmd)
 {
-	int old_stdin;
-	int fd_in;
-	int i;
-	char **splitted;
+	int		old_stdin;
+	int		fd_in;
+	int		i;
+	char	**splitted;
 
 	splitted = ft_split_quote(cmd, "|");
 	i = 0;
