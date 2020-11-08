@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 11:15:32 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/08 17:48:16 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 {
 	int		i;
 	char	**splitted_cmd;
-//	char	**new_cmds;
 	char	**new;
 
 	i = 0;
-//	new_cmds = NULL;
+	new = NULL;
 	while (commands[i])
 	{
 		if (strchr(commands[i], '|') || strchr(commands[i], '>'))
-		{
 			ft_pipe_redir(mini, commands[i]);
-		}
 		else
 		{
 			if (ft_check_multilines(commands[i]))

@@ -98,6 +98,7 @@ int				ft_strlen_quotes(char *word);
 */
 
 void			ft_pipe_redir(t_minishell *mini, char *cmd);
+void			ft_close_fd(int fd);
 
 /*
 **	UTILS

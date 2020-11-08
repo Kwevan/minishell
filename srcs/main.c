@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/08 10:59:41 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/08 12:05:34 by yay              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int				main(int argc, char **argv, char **env)
 		handle_input(&minishell);
 	}
 
-	system("leaks checker");
 
 	return (0);
 }

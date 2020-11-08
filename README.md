@@ -145,6 +145,11 @@ cp  minishell mini; chmod -x mini; ./mini
 
 
 
+echo ok | pwd
+
+echo ok | exit
+
+echo ok | pwd ; exit
 
 
 | less
