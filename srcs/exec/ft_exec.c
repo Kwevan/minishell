@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 16:13:26 by yay              ###   ########.fr       */
+/*   Updated: 2020/11/08 11:15:32 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 		}
 		i++;
 	}
+	ft_freestrarr(new);
 	ft_freestrarr(commands);
 }
