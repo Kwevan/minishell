@@ -62,6 +62,8 @@ echo ~~
 
 echo ~
 
+echo ok \|
+
 echo ok \| wc 
 
 echo ok "|" wc 

@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 17:48:16 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:15:50 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 	new = NULL;
 	while (commands[i])
 	{
-		if (strchr(commands[i], '|') || strchr(commands[i], '>'))
-			ft_pipe_redir(mini, commands[i]);
-		else
+		if (ft_check_multilines(commands[i]))
 		{
-			if (ft_check_multilines(commands[i]))
-			{
-				ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);
-				ft_freestrarr(commands);
-				return ;
-			}
+			ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);
+			ft_freestrarr(commands);
+			return ;
+		}
+		if (!ft_pipe_redir(mini, commands[i]))
+		{
 			splitted_cmd = ft_split_quote(commands[i], " ");
 			new = ft_parse(mini, splitted_cmd);
 			ft_exec_command(mini, new);

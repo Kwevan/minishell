@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 17:43:48 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:17:07 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_exec_pipe_cmd(t_minishell *mini, char **parsed)
 	{
 		bin_path = ft_get_bin_path(mini, parsed[0]);
 		if ((execve(bin_path, parsed, mini->env)) == -1)
-			ft_putstr_fd(strerror(errno), 2);
+			ft_putendl_fd(strerror(errno), 2);
 		ft_strdel(&bin_path);
 	}
 }
@@ -64,13 +64,15 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		ft_parent(&mini->pid, p, *fd_in, last);
 }
 
-void	ft_pipe_redir(t_minishell *mini, char *cmd)
+int		ft_pipe_redir(t_minishell *mini, char *cmd)
 {
 	int		old_stdin;
 	int		fd_in;
 	int		i;
 	char	**splitted;
 
+	if (!ft_is_pipe_or_redir(cmd))
+		return (0);
 	splitted = ft_split_quote(cmd, "|");
 	i = 0;
 	fd_in = 0;
@@ -83,4 +85,5 @@ void	ft_pipe_redir(t_minishell *mini, char *cmd)
 	}
 	dup2(old_stdin, 0);
 	ft_freestrarr(splitted);
+	return (1);
 }
