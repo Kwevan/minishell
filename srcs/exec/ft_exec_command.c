@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/10/30 11:07:03 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/09 18:36:33 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ int		exec_builtin(t_minishell *minishell, char **command)
 	else if (!ft_strcmp(command[0], "echo"))
 		ft_echo(command);
 	else if (!ft_strcmp(command[0], "env"))
-		ft_putstr2(minishell->env);
+		ft_env(minishell);
 	else if (!ft_strcmp(command[0], "pwd"))
 		ft_pwd(minishell);
 	else if (!ft_strcmp(command[0], "exit"))
 		ft_exit(minishell, command + 1);
+	else if (!ft_strcmp(command[0], "unset"))
+		ft_unset(minishell, command);
 	else
 		return (0);
 	return (1);

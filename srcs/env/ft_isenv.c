@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prompt_msg.c                                    :+:      :+:    :+:   */
+/*   ft_isenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/09 19:28:34 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/11/09 18:51:23 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_prompt_msg()
+int		ft_isenv(t_minishell *minishell, char *var)
 {
-	char	*cwd;
+	char	**split;
+	char	*key;
+	int		i;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
+	i = 0;
+	while (minishell->env[i])
 	{
-		ft_putstr_fd(cwd, 2);
-		ft_putstr_fd(" $ ", 2);
-		free(cwd);
+		split = ft_split(minishell->env[i], '=');
+		key = ft_strdup(split[0]);
+		ft_freestrarr(split);
+		if (!strcmp(key, var))
+		{
+			free(key);
+			return (1);
+		}
+		free(key);
+		i++;
 	}
+	return (0);
 }
