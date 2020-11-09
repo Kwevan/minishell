@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prompt_msg.c                                    :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/09 19:28:34 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/11/09 16:08:46 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/11/09 17:25:21 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_prompt_msg()
+void		ft_env(t_minishell *minishell)
 {
-	char	*cwd;
+	int		i;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
+	i = 0;
+	while (minishell->env[i])
 	{
-		ft_putstr_fd(cwd, 2);
-		ft_putstr_fd(" $ ", 2);
-		free(cwd);
+		ft_putstr_fd(minishell->env[i], STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		i++;
 	}
+	minishell->status = 0;
 }

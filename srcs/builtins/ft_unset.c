@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prompt_msg.c                                    :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/09 19:28:34 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/11/09 17:25:33 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/11/09 19:30:09 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_prompt_msg()
+void	ft_unset(t_minishell *minishell, char **cmd)
 {
-	char	*cwd;
+	int		i;
+	int		argc;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
+	argc = ft_countstrarr(cmd);
+	if (argc == 1)
+		return ;
+	else
 	{
-		ft_putstr_fd(cwd, 2);
-		ft_putstr_fd(" $ ", 2);
-		free(cwd);
+		i = 1;
+		while (i < argc)
+		{
+			if (ft_isenv(minishell, cmd[i]) == 1)
+				remove_env(minishell, cmd[i]);
+			i++;
+		}
 	}
 }

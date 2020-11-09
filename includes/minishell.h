@@ -59,7 +59,7 @@ typedef struct	s_redir
 **	ROOT
 */
 
-void			ft_prompt_msg(t_minishell *mini);
+void			ft_prompt_msg();
 void			get_input(t_minishell *mini);
 int				handle_input(t_minishell *mini);
 
@@ -68,7 +68,9 @@ int				handle_input(t_minishell *mini);
 */
 
 void			add_env(t_minishell *minishell, char *var);
-void			remove_env(t_minishell *minishell, char *var, int len);
+void			remove_env(t_minishell *minishell, char *var);
+int				get_env_index(t_minishell *minishell, char *var);
+int				ft_isenv(t_minishell *minishell, char *var);
 
 /*
 ** EXEC
@@ -88,6 +90,8 @@ void			ft_pwd(t_minishell *mini);
 void			ft_echo(char **cmd);
 void			ft_exit(t_minishell *mini, char **args);
 void			ft_cd(t_minishell *minishell, char **cmd);
+void			ft_env(t_minishell *minishell);
+void			ft_unset(t_minishell *minishell, char **cmd);
 
 /*
 **  PARSER

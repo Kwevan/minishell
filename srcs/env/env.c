@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/05 18:50:51 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/09 19:15:44 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_env_index(t_minishell *minishell, char *var)
+int			get_env_index(t_minishell *minishell, char *var)
 {
 	int		i;
 	int		len;
@@ -37,13 +37,15 @@ static int	get_env_index(t_minishell *minishell, char *var)
 	return (-1);
 }
 
-void		remove_env(t_minishell *minishell, char *var, int len)
+void		remove_env(t_minishell *minishell, char *var)
 {
 	int		i;
 	int		j;
 	int		index;
 	char	**tmp_env;
+	int		len;
 
+	len = ft_countstrarr(minishell->env);
 	index = get_env_index(minishell, var);
 	if (index == -1)
 		return ;
@@ -72,7 +74,7 @@ void		add_env(t_minishell *minishell, char *var)
 	int		len;
 
 	len = ft_countstrarr(minishell->env);
-	remove_env(minishell, var, len);
+	remove_env(minishell, var);
 	tmp_env = (char **)ft_calloc(sizeof(char *), len + 2);
 	if (tmp_env == NULL)
 		return ;
