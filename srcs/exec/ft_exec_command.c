@@ -15,7 +15,7 @@
 int		exec_builtin(t_minishell *minishell, char **command)
 {
 	if (!ft_strcmp(command[0], "cd"))
-		ft_putstr_fd("cd command", 1);
+		ft_cd(minishell, command);
 	else if (!ft_strcmp(command[0], "echo"))
 		ft_echo(command);
 	else if (!ft_strcmp(command[0], "env"))
