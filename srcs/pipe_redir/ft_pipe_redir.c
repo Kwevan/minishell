@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 19:17:07 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/10 11:17:44 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	old_stdin = dup(0);
 	while (splitted[i])
 	{
-		if (1)
+		if (!ft_redir(mini, splitted[i], &fd_in, (splitted[i + 1] == 0)))
 			ft_exec_pipe(mini, splitted[i], &fd_in, (splitted[i + 1] == 0));
 		i++;
 	}

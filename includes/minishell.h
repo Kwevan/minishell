@@ -93,6 +93,8 @@ int				ft_strlen_quotes(char *word);
 int				ft_pipe_redir(t_minishell *mini, char *cmd);
 void			ft_close_fd(int fd);
 int				ft_is_pipe_or_redir(char *cmd);
+int				ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last);
+
 
 /*
 **	UTILS
