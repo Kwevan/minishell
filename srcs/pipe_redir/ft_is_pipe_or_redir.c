@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_is_pipe_or_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 12:52:03 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 23:47:54 by kwe              ###   ########.fr       */
+/*   Created: 2020/11/08 18:55:20 by kgouacid          #+#    #+#             */
+/*   Updated: 2020/11/08 19:11:33 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_minishell *mini)
+char	*ft_strchr_quotes(char *s, int c)
 {
-	char	*cwd;
+	int			i;
+	t_quotes	quotes;
 
-	cwd = ft_get_envv(mini, mini->env, "PWD");
-	if (cwd)
+	i = 0;
+	ft_bzero(&quotes, sizeof(t_quotes));
+	while (s[i])
 	{
-		ft_putendl_fd(cwd, 1);
-		mini->ret = 0;
+		if (!ft_quote_open(&quotes, s[i]) && (s[i] == c))
+			return (s + i);
+		i++;
 	}
-	else
-		mini->ret = 1;
+	return (NULL);
+}
+
+int		ft_is_pipe_or_redir(char *cmd)
+{
+	if (ft_strchr_quotes(cmd, '|')
+		|| ft_strchr_quotes(cmd, '>')
+		|| ft_strchr_quotes(cmd, '<'))
+		return (1);
+	return (0);
 }

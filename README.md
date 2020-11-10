@@ -7,7 +7,13 @@ echo ok | ./minishell
 
 2 pas sur de savoir ce que la commande fait
 
+#### notes
 
+echo ok | grep "" not working because of the parser but I think it's ok 
+
+but this one will work 
+
+echo ok | echo $HOME
 
 
 ## Tests
@@ -55,6 +61,15 @@ echo "slt" \; "sava"
 echo ~~
 
 echo ~
+
+echo ok \|
+
+echo ok \| wc 
+
+echo ok "|" wc 
+
+echo ok '|' wc 
+
 
 
 # cd
@@ -131,6 +146,14 @@ cp  minishell mini; chmod -x mini; ./mini
 ### pipes and redir
 
 
+
+echo ok | pwd
+
+echo ok | exit
+
+echo ok | pwd ; exit
+
+
 | less
 
 | more
@@ -152,6 +175,11 @@ echo ls | ./minishell pour la gestion erreur lecture
 
 
 # good to know 
+
+
+echo ok | grep ""
+
+echo ok | echo $HOME
 
 
 max exit code = (LONG_MAX) +9223372036854775807

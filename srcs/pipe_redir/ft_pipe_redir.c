@@ -6,14 +6,84 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/27 19:50:09 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/08 19:17:07 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipe_redir(t_minishell *mini, char **cmd)
+void	ft_parent(pid_t *pid, int p[2], int fd_in, int last)
 {
-	(void)mini;
-	(void)cmd;
+	if (wait(pid) == -1)
+		ft_putendl_fd("error: wait", 2);
+	ft_close_fd(p[1]);
+	ft_close_fd(fd_in);
+	if (!last)
+		dup2(p[0], fd_in);
+	ft_close_fd(p[0]);
+}
+
+void	ft_exec_pipe_cmd(t_minishell *mini, char **parsed)
+{
+	char *bin_path;
+
+	bin_path = NULL;
+	if (!exec_builtin(mini, parsed))
+	{
+		bin_path = ft_get_bin_path(mini, parsed[0]);
+		if ((execve(bin_path, parsed, mini->env)) == -1)
+			ft_putendl_fd(strerror(errno), 2);
+		ft_strdel(&bin_path);
+	}
+}
+
+void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
+{
+	int		p[2];
+	char	**splitted;
+	char	**parsed;
+
+	pipe(p);
+	if ((mini->pid = fork()) == -1)
+		ft_putstr_fd(strerror(errno), 2);
+	if (mini->pid == 0)
+	{
+		dup2(*fd_in, 0);
+		if (!last)
+			dup2(p[1], 1);
+		else
+			ft_close_fd(p[1]);
+		ft_close_fd(p[0]);
+		splitted = ft_split_quote(cmd, " ");
+		parsed = ft_parse(mini, splitted);
+		ft_exec_pipe_cmd(mini, parsed);
+		ft_freestrarr(parsed);
+		exit(EXIT_SUCCESS);
+	}
+	else
+		ft_parent(&mini->pid, p, *fd_in, last);
+}
+
+int		ft_pipe_redir(t_minishell *mini, char *cmd)
+{
+	int		old_stdin;
+	int		fd_in;
+	int		i;
+	char	**splitted;
+
+	if (!ft_is_pipe_or_redir(cmd))
+		return (0);
+	splitted = ft_split_quote(cmd, "|");
+	i = 0;
+	fd_in = 0;
+	old_stdin = dup(0);
+	while (splitted[i])
+	{
+		if (1)
+			ft_exec_pipe(mini, splitted[i], &fd_in, (splitted[i + 1] == 0));
+		i++;
+	}
+	dup2(old_stdin, 0);
+	ft_freestrarr(splitted);
+	return (1);
 }

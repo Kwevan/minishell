@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_close_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 12:52:03 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/07 23:47:54 by kwe              ###   ########.fr       */
+/*   Created: 2020/11/08 17:01:05 by kgouacid          #+#    #+#             */
+/*   Updated: 2020/11/08 17:44:20 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_minishell *mini)
+void	ft_close_fd(int fd)
 {
-	char	*cwd;
-
-	cwd = ft_get_envv(mini, mini->env, "PWD");
-	if (cwd)
-	{
-		ft_putendl_fd(cwd, 1);
-		mini->ret = 0;
-	}
-	else
-		mini->ret = 1;
+	if ((close(fd)) == -1)
+		ft_putendl_fd(strerror(errno), 2);
 }
