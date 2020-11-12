@@ -165,6 +165,18 @@ echo ok | pwd ; exit
 | sed -e "s/a/u/"  remplace tous les 'a' par 'u'
 
 
+### redir
+
+echo ok > ok
+
+echo $HOME > ok2
+
+echo ok > a b c
+
+echo ok > d > e > f
+
+echo ok>k
+
 
 
 # pas vraiment réfléchi
@@ -176,6 +188,12 @@ echo ls | ./minishell pour la gestion erreur lecture
 
 # good to know 
 
+
+
+echo ok > 'o'
+echo ok > ' o'
+echo ok > '  o\'
+echo ok > $HOME
 
 echo ok | grep ""
 
