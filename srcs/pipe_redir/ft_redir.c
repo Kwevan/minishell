@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/12 17:49:05 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/13 13:09:33 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,31 +64,35 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	int len = 0;
 	i = 0;
 //	if (!ft_detect_redir(mini))
-	int old_fd = dup(1);
+	int old_fd;
+	return (0);
 	while (cmd[i])
 	{
 		if (cmd[i] == '>' || !cmd[i + 1])
 		{
-			if (file == 0)
+			if (file == 0 && cmd[i] == '>')
 			{
 			//char *redir_cmd = ft_substr(cmd, 0, i);
 			file = 1;
+          ft_putstr_fd("on pssee pas la ", 2);
 			}
-			else
+			else if (file == 1)
 			{
 				char *redir_fname = ft_substr(cmd, len, i);
 				int fd = get_fd(0, redir_fname);
+				old_fd = dup(1);
 				dup2(fd, 1);
-				close (fd);
+				ft_close(fd);
 				ft_putstr_fd(redir_fname, 1);
 				free(redir_fname);
 				dup2(old_fd, 1);
+				ft_close(old_fd);
+          ft_putstr_fd("on pssee pas la non plus", 2);
 			}
 			len = i + 1; // si ya d espaces on est niqué bien profond
 		}
 			i++;
 	}
-
-//		return (0);
-	return (1);
+	ft_putnbr_fd(file , 2);
+	return (file);
 }

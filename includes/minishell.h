@@ -91,7 +91,6 @@ int				ft_strlen_quotes(char *word);
 */
 
 int				ft_pipe_redir(t_minishell *mini, char *cmd);
-void			ft_close_fd(int fd);
 int				ft_is_pipe_or_redir(char *cmd);
 int				ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last);
 
@@ -104,5 +103,6 @@ void			exit_shell(t_minishell *minishell, int status);
 char			*ft_get_envv(t_minishell *mini, char **env, char *var);
 int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);
+void			ft_close(int fd);
 
 #endif
