@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/14 14:48:21 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/14 15:23:40 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,14 @@
 
 char	*ft_remove_space(char *str)
 {
-	char	*ret;
-	int		len;
 	int		i;
-	int		j;
 
-	i = -1;
-	j = -1;
-	ret = NULL;
-	len = 0;
-	while (str[++i])
-		if (str[i] != ' ' && str[i] != '\t')
-			++len;
-	i = -1;
-	ret = ft_strnew(len);
-	while (str[++i])
-		if (str[i] != ' ' && str[i] != '\t')
-			ret[++j] = str[i];
-	if (j < 1)
-		return (NULL);
-	return (ret);
+	i = 0;
+	while (*str && (*str == ' '))
+			str++;
+	while (str[i] && str[i] != ' ')
+		i++;
+	return (ft_strndup(str, i));
 }
 
 int		get_fd(int i, char *fname)
@@ -77,9 +65,13 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 			}
 			else if (file)
 			{
-				
 				redir_fname = ft_substr(cmd, len, i - len + (cmd[i + 1] == 0));
-				fd = get_fd(0, redir_fname);
+				ft_putstr_fd(" [ ", 2);ft_putstr_fd(redir_fname, 2);ft_putstr_fd(" ] ", 2);
+				if ((fd = get_fd(0, redir_fname)) == -2)
+				{
+					ft_putstr_fd("in file name", 1);
+					return 1;
+				}
 				if (cmd [i + 1])
 					ft_close(fd);
 			}
@@ -92,7 +84,7 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	dup2(old_fd, 1);
 	ft_close(old_fd);
 	ft_close(fd);
-	ft_strdel(&redir_cmd);
+	ft_strdel(&redir_fname);
 	ft_strdel(&redir_cmd);
 	return (file);
 }

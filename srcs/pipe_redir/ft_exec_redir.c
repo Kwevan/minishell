@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 13:23:30 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/14 14:00:33 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/14 14:51:08 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	ft_exec_redir(t_minishell *mini, int fd, char *redir_fname, char *cmd)
 	else if (mini->pid == 0)
 	{
 		dup2(fd, 1);
-		ft_close(fd);//maybe useless cause we are in the children
 		char **splitted = ft_split_quote(cmd, " ");
 		char **parsed = ft_parse(mini, splitted);
 		ft_exec_redir2(mini, parsed);
