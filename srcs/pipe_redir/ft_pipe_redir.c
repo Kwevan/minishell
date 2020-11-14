@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/13 13:07:59 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/13 13:23:04 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	char	**splitted;
 
 	if (!ft_is_pipe_or_redir(cmd))
-	{
-		ft_putstr_fd("Une redir a été faite", 2);
 		return (0);
-	}
 	splitted = ft_split_quote(cmd, "|");
 	i = 0;
 	fd_in = 0;

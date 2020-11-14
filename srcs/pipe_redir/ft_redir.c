@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/13 13:09:33 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/14 13:50:00 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,39 +60,35 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	(void)cmd;
 	int i;
 
+	char *redir_cmd = NULL;
 	int file = 0;
 	int len = 0;
 	i = 0;
-//	if (!ft_detect_redir(mini))
 	int old_fd;
-	return (0);
 	while (cmd[i])
 	{
 		if (cmd[i] == '>' || !cmd[i + 1])
 		{
 			if (file == 0 && cmd[i] == '>')
 			{
-			//char *redir_cmd = ft_substr(cmd, 0, i);
-			file = 1;
-          ft_putstr_fd("on pssee pas la ", 2);
+				redir_cmd = ft_substr(cmd, 0, i);
+				file = 1;
+          		ft_putstr_fd("on pssee pas la ", 2);
 			}
-			else if (file == 1)
+			else if (file)
 			{
 				char *redir_fname = ft_substr(cmd, len, i);
 				int fd = get_fd(0, redir_fname);
 				old_fd = dup(1);
-				dup2(fd, 1);
-				ft_close(fd);
-				ft_putstr_fd(redir_fname, 1);
-				free(redir_fname);
+				ft_exec_redir(mini, fd, redir_fname, redir_cmd);
 				dup2(old_fd, 1);
 				ft_close(old_fd);
-          ft_putstr_fd("on pssee pas la non plus", 2);
+        	  ft_putstr_fd("on pssee pas la non plus", 2);
 			}
 			len = i + 1; // si ya d espaces on est niqué bien profond
 		}
 			i++;
 	}
-	ft_putnbr_fd(file , 2);
+	ft_strdel(&redir_cmd);
 	return (file);
 }
