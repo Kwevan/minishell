@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/16 12:42:30 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/16 13:45:35 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int		get_fd(int i, char *fname)
 	if (!(parsed = ft_remove_space(fname)))
 		return (-1);
 	if (i == 0)
-		fd = open(parsed, O_APPEND | O_CREAT | O_WRONLY, S_IRWXU);
-	else if (i == 1)
 		fd = open(parsed, O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
+	else if (i == 1)
+		fd = open(parsed, O_APPEND | O_CREAT | O_WRONLY, S_IRWXU);
 	else if (i == 2)
 		fd = open(parsed, O_RDONLY);
 	free(parsed);
@@ -57,14 +57,18 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	i = 0;
 	int old_fd;
 	int type;
+	t_quotes quotes;
 
 	type = 0;
+	ft_bzero(&quotes, sizeof(t_quotes));
 	while (cmd[i])
 	{
-		ft_redir_type(cmd[i], cmd[i + 1], &type);
-		if (type >= 0 || !cmd[i + 1])
+		if ((!ft_quote_open(&quotes, cmd[i]) && (cmd[i] == '>' || cmd[i] == '<')) || !cmd[i + 1])
 		{
-			if (file == 0 && cmd[i] == '>')
+			ft_putstr_fd(" [ ", 2);
+			ft_putnbr_fd(type, 2);
+			ft_putstr_fd(" ] ", 2);
+			if (file == 0 && (cmd[i] == '>' || cmd[i] == '<'))
 			{
 				redir_cmd = ft_substr(cmd, 0, i);
 				file = 1;
@@ -73,7 +77,7 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 			{
 				redir_fname = ft_substr(cmd, len, i - len + (cmd[i + 1] == 0));
 				ft_putstr_fd(" [ ", 2);ft_putstr_fd(redir_fname, 2);ft_putstr_fd(" ] ", 2);
-				if ((fd = get_fd(2, redir_fname)) == -1)
+				if ((fd = get_fd(type, redir_fname)) == -1)
 				{
 					ft_putstr_fd(strerror(errno), 1);
 					return 1;
@@ -81,10 +85,15 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 				if (cmd [i + 1])
 					ft_close(fd);
 			}
+			ft_redir_type(cmd[i], cmd[i + 1], &type);
+			if (type == 1)
+				i++;
 			len = i + 1;
 		}
 			i++;
 	}
+	if (file)
+	{
 	old_fd = dup(1);
 	ft_exec_redir(mini, fd, redir_fname, redir_cmd);
 	dup2(old_fd, 1);
@@ -92,5 +101,6 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	ft_close(fd);
 	ft_strdel(&redir_fname);
 	ft_strdel(&redir_cmd);
+	}
 	return (file);
 }

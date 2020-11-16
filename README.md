@@ -154,15 +154,9 @@ echo ok | exit
 echo ok | pwd ; exit
 
 
-| less
 
-| more
 
-| sort
 
-| grep "a" - va display la ligne contenant a et mettre a en evidence
-
-| sed -e "s/a/u/"  remplace tous les 'a' par 'u'
 
 
 ### redir
@@ -177,6 +171,9 @@ echo ok > d > e > f
 
 echo ok>k
 
+echo ok '>' ok
+
+echo ok ">" ok
 
 
 # pas vraiment réfléchi
