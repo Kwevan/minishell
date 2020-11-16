@@ -94,6 +94,7 @@ int				ft_pipe_redir(t_minishell *mini, char *cmd);
 int				ft_is_pipe_or_redir(char *cmd);
 int				ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last);
 int				ft_exec_redir(t_minishell *mini, int fd, char *redir_fname, char *cmd);
+int				ft_redir_type(char c, char d, int *type);
 
 
 /*

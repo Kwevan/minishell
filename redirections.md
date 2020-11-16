@@ -78,3 +78,9 @@ Send the result to the command
 then write the result in the last file after some [>] or [>>]
 
 ---
+
+* grep "" < file_that_doesnt_exit
+
+error no such file or dir
+
+---

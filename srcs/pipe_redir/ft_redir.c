@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/14 15:23:40 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/16 12:42:30 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int		get_fd(int i, char *fname)
 	fd = -1;
 	if (!(parsed = ft_remove_space(fname)))
 		return (-1);
-	if (i)
+	if (i == 0)
 		fd = open(parsed, O_APPEND | O_CREAT | O_WRONLY, S_IRWXU);
-	else
+	else if (i == 1)
 		fd = open(parsed, O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
+	else if (i == 2)
+		fd = open(parsed, O_RDONLY);
 	free(parsed);
 	return (fd);
 }
@@ -54,9 +56,13 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	int len = 0;
 	i = 0;
 	int old_fd;
+	int type;
+
+	type = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '>' || !cmd[i + 1])
+		ft_redir_type(cmd[i], cmd[i + 1], &type);
+		if (type >= 0 || !cmd[i + 1])
 		{
 			if (file == 0 && cmd[i] == '>')
 			{
@@ -67,9 +73,9 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 			{
 				redir_fname = ft_substr(cmd, len, i - len + (cmd[i + 1] == 0));
 				ft_putstr_fd(" [ ", 2);ft_putstr_fd(redir_fname, 2);ft_putstr_fd(" ] ", 2);
-				if ((fd = get_fd(0, redir_fname)) == -2)
+				if ((fd = get_fd(2, redir_fname)) == -1)
 				{
-					ft_putstr_fd("in file name", 1);
+					ft_putstr_fd(strerror(errno), 1);
 					return 1;
 				}
 				if (cmd [i + 1])
