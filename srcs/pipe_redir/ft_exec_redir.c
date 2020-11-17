@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 13:23:30 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/14 14:51:08 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/16 21:22:33 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ void    ft_exec_redir2(t_minishell *mini, char **parsed)
       }
  }
 
-int	ft_exec_redir(t_minishell *mini, int fd, char *redir_fname, char *cmd)
+int	ft_exec_redir(t_minishell *mini, int fd, int std, char *cmd)
 {
 	mini->pid = fork();
 	if (mini->pid == -1)
-		ft_putstr_fd(redir_fname, 1);
+		ft_putstr_fd("Error: fork", 2);
 	else if (mini->pid == 0)
 	{
-		dup2(fd, 1);
+		dup2(fd, std);
 		char **splitted = ft_split_quote(cmd, " ");
 		char **parsed = ft_parse(mini, splitted);
 		ft_exec_redir2(mini, parsed);
 		ft_freestrarr(parsed);
-		free(redir_fname);
 		exit(EXIT_SUCCESS);
 	}
 	else

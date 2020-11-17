@@ -38,7 +38,7 @@ The only difference is that, if a or b exist, their content won't change
 
 * grep "" < a < b < c
 
-will read a then b then c and give the files read to grep
+will simply read the last file
 
 ---
 

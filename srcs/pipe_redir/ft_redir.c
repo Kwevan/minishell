@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/16 13:45:35 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/17 03:37:19 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	char *redir_fname = NULL;
 	int file = 0;
 	int len = 0;
-	i = 0;
-	int old_fd;
 	int type;
 	t_quotes quotes;
+	int old_fd;
 
 	type = 0;
+	i =0;
 	ft_bzero(&quotes, sizeof(t_quotes));
 	while (cmd[i])
 	{
@@ -82,25 +82,35 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 					ft_putstr_fd(strerror(errno), 1);
 					return 1;
 				}
-				if (cmd [i + 1])
-					ft_close(fd);
+				if (type == 2)
+				
+					old_fd = dup(0);
+					ft_exec_redir(mini, fd, 0, redir_cmd);
+					dup2(old_fd, 0);
+					ft_close(old_fd);	
+				}	
+				ft_close(fd);
 			}
-			ft_redir_type(cmd[i], cmd[i + 1], &type);
-			if (type == 1)
-				i++;
+			if (cmd[i + 1])
+			{
+				ft_redir_type(cmd[i], cmd[i + 1], &type);
+				if (type == 1)
+					i++;
+			}
 			len = i + 1;
 		}
 			i++;
 	}
-	if (file)
+	if (file && (type == 0 || type == 1))
 	{
-	old_fd = dup(1);
-	ft_exec_redir(mini, fd, redir_fname, redir_cmd);
-	dup2(old_fd, 1);
-	ft_close(old_fd);
-	ft_close(fd);
-	ft_strdel(&redir_fname);
-	ft_strdel(&redir_cmd);
+		fd = get_fd(type, redir_fname);
+		old_fd = dup(1);
+		ft_exec_redir(mini, fd, 1, redir_cmd);
+		dup2(old_fd, 1);
+		ft_close(old_fd);
+		ft_close(fd);
+		ft_strdel(&redir_fname);
+		ft_strdel(&redir_cmd);
 	}
 	return (file);
 }
