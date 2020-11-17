@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/17 12:49:19 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/17 16:39:03 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	int len = 0;
 	int type;
 	t_quotes quotes;
-	int old_fd;
 	int std[2];
 
 	type = 0;
@@ -100,16 +99,14 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 	if (file && type != -1)
 	{
 		fd = get_fd(type, redir_fname);
-		old_fd = dup(1);
-		int old_fd2 = dup(0);
 		ft_exec_redir(mini, std, redir_cmd);
-		dup2(old_fd, 1);
-		dup2(old_fd2, 0);
-		ft_close(old_fd);
-		ft_close(old_fd2);
 		ft_close(fd);
 		ft_strdel(&redir_fname);
 		ft_strdel(&redir_cmd);
+		pipe(std);
+		close(std[1]);
+		dup2(std[0], *fd_in);
+		close(std[0]);
 	}
 	return (file);
 }
