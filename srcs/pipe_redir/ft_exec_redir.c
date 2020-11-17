@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 13:23:30 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/17 12:21:01 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/17 22:10:58 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	ft_exec_redir(t_minishell *mini, int std[2], char *cmd)
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
 		wait(&mini->pid);
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/17 16:39:03 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/17 23:07:17 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*ft_remove_space(char *str)
 
 	i = 0;
 	while (*str && (*str == ' '))
-			str++;
+		str++;
 	while (str[i] && str[i] != ' ')
 		i++;
 	return (ft_strndup(str, i));
 }
 
-int		get_fd(int i, char *fname)
+int		get_fd(int type, char *fname, t_minishell *mini, int close)
 {
 	int		fd;
 	char	*parsed;
@@ -32,36 +32,41 @@ int		get_fd(int i, char *fname)
 	fd = -1;
 	if (!(parsed = ft_remove_space(fname)))
 		return (-1);
-	if (i == 0)
+	if (type == 0)
 		fd = open(parsed, O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
-	else if (i == 1)
+	else if (type == 1)
 		fd = open(parsed, O_APPEND | O_CREAT | O_WRONLY, S_IRWXU);
-	else if (i == 2)
+	else if (type == 2)
 		fd = open(parsed, O_RDONLY);
 	free(parsed);
+	if (fd == -1)
+	{
+		ft_putstr_fd(strerror(errno), 1);
+		return (-1);
+	}
+	if (type == 0 || type == 1)
+		mini->pipe[1] = fd;
+	else if (type == 2)
+		mini->pipe[0] = fd;
+	if (close)
+		ft_close(fd);
 	return (fd);
 }
 
-int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
+int		ft_redir(t_minishell *mini, char *cmd, int *fd_in)
 {
-	(void)last;
-	(void)mini;
-	(void)fd_in;
-	(void)cmd;
 	int i;
-	int fd;
 	char *redir_cmd = NULL;
 	char *redir_fname = NULL;
 	int file = 0;
 	int len = 0;
 	int type;
 	t_quotes quotes;
-	int std[2];
 
 	type = 0;
 	i = 0;
-	std[0] = 0;
-	std[1] = 1;
+	mini->pipe[0] = 0;
+	mini->pipe[1] = 1;
 	ft_bzero(&quotes, sizeof(t_quotes));
 	while (cmd[i])
 	{
@@ -75,16 +80,8 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 			else if (file)
 			{
 				redir_fname = ft_substr(cmd, len, i - len + (cmd[i + 1] == 0));
-				if ((fd = get_fd(type, redir_fname)) == -1)
-				{
-					ft_putstr_fd(strerror(errno), 1);
-					return 1;
-				}
-				if (type == 0 || type == 1)
-					std[1] = fd;
-				else if (type == 2)
-					std[0] = fd;
-				ft_close(fd);
+				if (get_fd(type, redir_fname, mini, 1) == -1)
+					return (1);
 			}
 			if (cmd[i + 1])
 			{
@@ -94,19 +91,23 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in, int last)
 			}
 			len = i + 1;
 		}
-			i++;
+		i++;
 	}
 	if (file && type != -1)
 	{
-		fd = get_fd(type, redir_fname);
-		ft_exec_redir(mini, std, redir_cmd);
-		ft_close(fd);
+		if (get_fd(type, redir_fname, mini, 0) == -1)
+			return (1);
+		ft_exec_redir(mini, mini->pipe, redir_cmd);
+		if (type == 0 || type == 1)
+			ft_close(mini->pipe[1]);
+		else
+			ft_close(mini->pipe[0]);
 		ft_strdel(&redir_fname);
 		ft_strdel(&redir_cmd);
-		pipe(std);
-		close(std[1]);
-		dup2(std[0], *fd_in);
-		close(std[0]);
+		pipe(mini->pipe);
+		close(mini->pipe[1]);
+		dup2(mini->pipe[0], *fd_in);
+		close(mini->pipe[0]);
 	}
 	return (file);
 }
