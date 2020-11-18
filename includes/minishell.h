@@ -107,7 +107,6 @@ int				ft_exec_redir(t_minishell *mini, t_redir *redir, int *fd_in);
 int				ft_redir_type(char c, char d, int *type, int *i);
 int				get_fd(int type, char *fname, t_minishell *mini, int close);
 
-
 /*
 **	UTILS
 */

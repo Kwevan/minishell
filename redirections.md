@@ -84,3 +84,7 @@ then write the result in the last file after some [>] or [>>]
 error no such file or dir
 
 ---
+
+echo ok > "oui>i"
+
+---
