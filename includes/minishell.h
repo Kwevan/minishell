@@ -40,6 +40,15 @@ typedef struct	s_minishell
 	int			status;
 }				t_minishell;
 
+typedef struct	s_redir
+{
+	char		*redir_cmd;
+	char		*redir_fname;
+	int			redir;
+	int			start;
+	int			type;
+}				t_redir;
+
 /*
 ** -----------------
 **     FUNCTIONS
@@ -94,8 +103,9 @@ int				ft_strlen_quotes(char *word);
 int				ft_pipe_redir(t_minishell *mini, char *cmd);
 int				ft_is_pipe_or_redir(char *cmd);
 int				ft_redir(t_minishell *mini, char *cmd, int *fd_in);
-int				ft_exec_redir(t_minishell *mini, int std[2], char *cmd);
-int				ft_redir_type(char c, char d, int *type);
+int				ft_exec_redir(t_minishell *mini, t_redir *redir, int *fd_in);
+int				ft_redir_type(char c, char d, int *type, int *i);
+int				get_fd(int type, char *fname, t_minishell *mini, int close);
 
 
 /*

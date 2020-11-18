@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/17 23:07:17 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/18 14:14:11 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,61 +53,47 @@ int		get_fd(int type, char *fname, t_minishell *mini, int close)
 	return (fd);
 }
 
+int		ft_get_redir_file(t_minishell *mini, t_redir *redir, char *cmd, int i)
+{
+	ft_strdel(&redir->redir_fname);
+	redir->redir_fname = ft_substr(cmd, redir->start,
+		i - redir->start + (cmd[i + 1] == 0));
+	if (get_fd(redir->type, redir->redir_fname, mini, 1) == -1)
+		return (1);
+	return (0);
+}
+
+void	ft_get_redir_cmd(t_redir *redir, char *cmd, int i)
+{
+	redir->redir_cmd = ft_substr(cmd, 0, i);
+	redir->redir = 1;
+}
+
 int		ft_redir(t_minishell *mini, char *cmd, int *fd_in)
 {
-	int i;
-	char *redir_cmd = NULL;
-	char *redir_fname = NULL;
-	int file = 0;
-	int len = 0;
-	int type;
-	t_quotes quotes;
+	int			i;
+	t_redir		redir;
+	t_quotes	quotes;
 
-	type = 0;
 	i = 0;
 	mini->pipe[0] = 0;
 	mini->pipe[1] = 1;
 	ft_bzero(&quotes, sizeof(t_quotes));
+	ft_bzero(&redir, sizeof(t_redir));
 	while (cmd[i])
 	{
-		if ((!ft_quote_open(&quotes, cmd[i]) && (cmd[i] == '>' || cmd[i] == '<')) || !cmd[i + 1])
+		if ((!ft_quote_open(&quotes, cmd[i])
+			&& (cmd[i] == '>' || cmd[i] == '<')) || !cmd[i + 1])
 		{
-			if (file == 0 && (cmd[i] == '>' || cmd[i] == '<'))
-			{
-				redir_cmd = ft_substr(cmd, 0, i);
-				file = 1;
-			}
-			else if (file)
-			{
-				redir_fname = ft_substr(cmd, len, i - len + (cmd[i + 1] == 0));
-				if (get_fd(type, redir_fname, mini, 1) == -1)
-					return (1);
-			}
+			if (redir.redir == 0 && (cmd[i] == '>' || cmd[i] == '<'))
+				ft_get_redir_cmd(&redir, cmd, i);
+			else if (redir.redir && ft_get_redir_file(mini, &redir, cmd, i))
+				return (1);
 			if (cmd[i + 1])
-			{
-				ft_redir_type(cmd[i], cmd[i + 1], &type);
-				if (type == 1)
-					i++;
-			}
-			len = i + 1;
+				ft_redir_type(cmd[i], cmd[i + 1], &redir.type, &i);
+			redir.start = i + 1;
 		}
 		i++;
 	}
-	if (file && type != -1)
-	{
-		if (get_fd(type, redir_fname, mini, 0) == -1)
-			return (1);
-		ft_exec_redir(mini, mini->pipe, redir_cmd);
-		if (type == 0 || type == 1)
-			ft_close(mini->pipe[1]);
-		else
-			ft_close(mini->pipe[0]);
-		ft_strdel(&redir_fname);
-		ft_strdel(&redir_cmd);
-		pipe(mini->pipe);
-		close(mini->pipe[1]);
-		dup2(mini->pipe[0], *fd_in);
-		close(mini->pipe[0]);
-	}
-	return (file);
+	return (ft_exec_redir(mini, &redir, fd_in));
 }

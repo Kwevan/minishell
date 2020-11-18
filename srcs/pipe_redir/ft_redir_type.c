@@ -6,14 +6,17 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:46:24 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/16 13:20:22 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/18 11:44:13 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_redir_type(char c, char d, int *type)
+int		ft_redir_type(char c, char d, int *type, int *i)
 {
 	if (c == '>' && d == '>')
+	{
 		*type = 1;
+		*i += 1;
+	}
 	else if (c == '>')
 		*type = 0;
 	else if (c == '<')
