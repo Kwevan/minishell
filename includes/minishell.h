@@ -116,5 +116,6 @@ char			*ft_get_envv(t_minishell *mini, char **env, char *var);
 int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);
 void			ft_close(int fd);
+char			*ft_remove_space(char *str);
 
 #endif
