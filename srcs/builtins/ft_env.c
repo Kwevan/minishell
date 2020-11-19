@@ -1,50 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 10:38:25 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/17 17:00:01 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/11/09 16:08:46 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/11/19 16:42:43 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_check_option(char *cmd)
+static int	check_var(char *env)
 {
-	if (!ft_strncmp(cmd, "-n", 2))
-		return (1);
-	else
-		return (0);
+	int		i;
+	char	**split;
+	char	*key;
+
+	split = ft_split(env, '=');
+	key = ft_strdup(split[0]);
+	ft_freestrarr(split);
+	i = 0;
+	while (key[i])
+	{
+		if ((key[i] < 65 || key[i] > 90) && key[i] != '_')
+		{
+			free(key);
+			return (0);
+		}
+		i++;
+	}
+	free(key);
+	return (1);
 }
 
-void		ft_echo(t_minishell *minishell, char **cmd)
+void		ft_env(t_minishell *minishell)
 {
-	int		argc;
 	int		i;
-	int		j;
 
 	i = 0;
-	argc = ft_countstrarr(cmd);
-	if (argc > 1)
+	while (minishell->env[i])
 	{
-		j = 1;
-		while (cmd[j] && ft_check_option(cmd[j]) > 0)
-			j++;
-		i += j;
-		while (cmd[i])
+		if (check_var(minishell->env[i]) && check_equality(minishell->env[i]))
 		{
-			ft_putstr_fd(cmd[i], 1);
-			if (i < argc)
-				ft_putstr_fd(" ", STDOUT_FILENO);
-			i++;
-		}
-		if (j <= 1)
+			ft_putstr_fd(minishell->env[i], STDOUT_FILENO);
 			ft_putstr_fd("\n", STDOUT_FILENO);
+		}
+		i++;
 	}
-	else
-		ft_putstr_fd("\n", STDOUT_FILENO);
 	minishell->ret = 0;
 }

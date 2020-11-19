@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/08 12:59:12 by yay              ###   ########.fr       */
+/*   Updated: 2020/11/19 16:42:05 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ int		exec_builtin(t_minishell *minishell, char **command)
 	if (!ft_strcmp(command[0], "cd"))
 		ft_cd(minishell, command);
 	else if (!ft_strcmp(command[0], "echo"))
-		ft_echo(command);
+		ft_echo(minishell, command);
 	else if (!ft_strcmp(command[0], "env"))
-		ft_putstr2(minishell->env);
+		ft_env(minishell);
 	else if (!ft_strcmp(command[0], "pwd"))
 		ft_pwd(minishell);
 	else if (!ft_strcmp(command[0], "exit"))
 		ft_exit(minishell, command + 1);
+	else if (!ft_strcmp(command[0], "unset"))
+		ft_unset(minishell, command);
+	else if (!ft_strcmp(command[0], "export"))
+		ft_export(minishell, command);
 	else
 		return (0);
 	return (1);
@@ -39,7 +43,7 @@ int		exec_bin(t_minishell *minishell, char **command)
 		ft_putstr_fd(strerror(errno), 1);
 	else if (minishell->pid > 0)
 	{
-		waitpid(minishell->pid, &minishell->status, 0);
+		waitpid(minishell->pid, &minishell->ret, 0);
 		kill(minishell->pid, SIGTERM);
 	}
 	else

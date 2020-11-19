@@ -1,50 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 10:38:25 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/17 17:00:01 by afoulqui         ###   ########.fr       */
+/*   Created: 2020/11/09 17:25:33 by afoulqui          #+#    #+#             */
+/*   Updated: 2020/11/19 16:43:11 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_check_option(char *cmd)
+void	ft_unset(t_minishell *minishell, char **cmd)
 {
-	if (!ft_strncmp(cmd, "-n", 2))
-		return (1);
-	else
-		return (0);
-}
-
-void		ft_echo(t_minishell *minishell, char **cmd)
-{
-	int		argc;
 	int		i;
-	int		j;
+	int		argc;
 
-	i = 0;
 	argc = ft_countstrarr(cmd);
-	if (argc > 1)
+	if (argc == 1)
 	{
-		j = 1;
-		while (cmd[j] && ft_check_option(cmd[j]) > 0)
-			j++;
-		i += j;
-		while (cmd[i])
-		{
-			ft_putstr_fd(cmd[i], 1);
-			if (i < argc)
-				ft_putstr_fd(" ", STDOUT_FILENO);
-			i++;
-		}
-		if (j <= 1)
-			ft_putstr_fd("\n", STDOUT_FILENO);
+		minishell->ret = 0;
+		return ;
 	}
 	else
-		ft_putstr_fd("\n", STDOUT_FILENO);
+	{
+		i = 1;
+		while (i < argc)
+		{
+			if (ft_isenv(minishell, cmd[i]) == 1)
+				remove_env(minishell, cmd[i]);
+			i++;
+		}
+	}
 	minishell->ret = 0;
 }

@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/05 18:50:51 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/19 17:01:30 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_env_index(t_minishell *minishell, char *var)
+int			get_env_index(t_minishell *minishell, char *var)
 {
 	int		i;
 	int		len;
@@ -37,18 +37,19 @@ static int	get_env_index(t_minishell *minishell, char *var)
 	return (-1);
 }
 
-void		remove_env(t_minishell *minishell, char *var, int len)
+void		remove_env(t_minishell *minishell, char *var)
 {
 	int		i;
 	int		j;
 	int		index;
 	char	**tmp_env;
+	int		len;
 
 	index = get_env_index(minishell, var);
 	if (index == -1)
 		return ;
-	tmp_env = (char **)ft_calloc(sizeof(char *), len + 1);
-	if (tmp_env == NULL)
+	len = ft_countstrarr(minishell->env);
+	if (!(tmp_env = (char **)ft_calloc(sizeof(char *), len + 1)))
 		return ;
 	i = 0;
 	j = 0;
@@ -69,20 +70,23 @@ void		add_env(t_minishell *minishell, char *var)
 {
 	char	**tmp_env;
 	int		i;
+	int		j;
 	int		len;
 
+	remove_env(minishell, var);
 	len = ft_countstrarr(minishell->env);
-	remove_env(minishell, var, len);
 	tmp_env = (char **)ft_calloc(sizeof(char *), len + 2);
 	if (tmp_env == NULL)
 		return ;
 	i = 0;
+	j = 0;
 	while (minishell->env[i])
 	{
-		tmp_env[i] = ft_strdup(minishell->env[i]);
+		tmp_env[j] = ft_strdup(minishell->env[i]);
 		i++;
+		j++;
 	}
-	tmp_env[i] = ft_strdup(var);
+	tmp_env[j] = ft_strdup(var);
 	ft_freestrarr(minishell->env);
 	minishell->env = tmp_env;
 }

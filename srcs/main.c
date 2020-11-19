@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/17 16:43:11 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/19 16:44:31 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				main(int argc, char **argv, char **env)
 	init_env(&minishell, env);
 	while (1)
 	{
-		ft_prompt_msg(&minishell);
+		ft_prompt_msg();
 		get_input(&minishell);
 		handle_input(&minishell);
 	}
