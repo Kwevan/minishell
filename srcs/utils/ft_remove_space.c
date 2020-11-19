@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_close_fd.c                                      :+:      :+:    :+:   */
+/*   ft_remove_space.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/08 17:01:05 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 17:44:20 by kgouacid         ###   ########.fr       */
+/*   Created: 2020/11/18 18:21:45 by kwe               #+#    #+#             */
+/*   Updated: 2020/11/18 18:23:38 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_close_fd(int fd)
+char	*ft_remove_space(char *str)
 {
-	if ((close(fd)) == -1)
-		ft_putendl_fd(strerror(errno), 2);
+	int	i;
+
+	i = 0;
+	while (*str && (*str == ' '))
+		str++;
+	while (str[i] && str[i] != ' ')
+		i++;
+	return (ft_strndup(str, i));
 }

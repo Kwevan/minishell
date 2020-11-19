@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 19:17:07 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/17 22:08:56 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	ft_parent(pid_t *pid, int p[2], int fd_in, int last)
 {
 	if (wait(pid) == -1)
 		ft_putendl_fd("error: wait", 2);
-	ft_close_fd(p[1]);
-	ft_close_fd(fd_in);
+	ft_close(p[1]);
+	ft_close(fd_in);
 	if (!last)
 		dup2(p[0], fd_in);
-	ft_close_fd(p[0]);
+	ft_close(p[0]);
 }
 
 void	ft_exec_pipe_cmd(t_minishell *mini, char **parsed)
@@ -52,8 +52,8 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		if (!last)
 			dup2(p[1], 1);
 		else
-			ft_close_fd(p[1]);
-		ft_close_fd(p[0]);
+			ft_close(p[1]);
+		ft_close(p[0]);
 		splitted = ft_split_quote(cmd, " ");
 		parsed = ft_parse(mini, splitted);
 		ft_exec_pipe_cmd(mini, parsed);
@@ -79,11 +79,12 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	old_stdin = dup(0);
 	while (splitted[i])
 	{
-		if (1)
+		if (!ft_redir(mini, splitted[i], &fd_in))
 			ft_exec_pipe(mini, splitted[i], &fd_in, (splitted[i + 1] == 0));
 		i++;
 	}
 	dup2(old_stdin, 0);
+	ft_close(old_stdin);
 	ft_freestrarr(splitted);
 	return (1);
 }

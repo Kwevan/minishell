@@ -34,10 +34,20 @@ typedef struct	s_minishell
 	char		**commands;
 	int			has_pipe;
 	int			tube[3];
+	int			pipe[2];
 	int			ret;
 	pid_t		pid;
 	int			status;
 }				t_minishell;
+
+typedef struct	s_redir
+{
+	char		*redir_cmd;
+	char		*redir_fname;
+	int			redir;
+	int			start;
+	int			type;
+}				t_redir;
 
 /*
 ** -----------------
@@ -91,8 +101,11 @@ int				ft_strlen_quotes(char *word);
 */
 
 int				ft_pipe_redir(t_minishell *mini, char *cmd);
-void			ft_close_fd(int fd);
 int				ft_is_pipe_or_redir(char *cmd);
+int				ft_redir(t_minishell *mini, char *cmd, int *fd_in);
+int				ft_exec_redir(t_minishell *mini, t_redir *redir, int *fd_in);
+int				ft_redir_type(char c, char d, int *type, int *i);
+int				get_fd(int type, char *fname, t_minishell *mini, int close);
 
 /*
 **	UTILS
@@ -102,5 +115,7 @@ void			exit_shell(t_minishell *minishell, int status);
 char			*ft_get_envv(t_minishell *mini, char **env, char *var);
 int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);
+void			ft_close(int fd);
+char			*ft_remove_space(char *str);
 
 #endif

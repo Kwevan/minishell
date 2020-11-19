@@ -154,17 +154,26 @@ echo ok | exit
 echo ok | pwd ; exit
 
 
-| less
-
-| more
-
-| sort
-
-| grep "a" - va display la ligne contenant a et mettre a en evidence
-
-| sed -e "s/a/u/"  remplace tous les 'a' par 'u'
 
 
+
+
+
+### redir
+
+echo ok > ok
+
+echo $HOME > ok2
+
+echo ok > a b c
+
+echo ok > d > e > f
+
+echo ok>k
+
+echo ok '>' ok
+
+echo ok ">" ok
 
 
 # pas vraiment réfléchi
@@ -176,6 +185,12 @@ echo ls | ./minishell pour la gestion erreur lecture
 
 # good to know 
 
+
+
+echo ok > 'o'
+echo ok > ' o'
+echo ok > '  o\'
+echo ok > $HOME
 
 echo ok | grep ""
 
