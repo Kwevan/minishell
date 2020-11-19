@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:43:31 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/19 17:01:30 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ void		remove_env(t_minishell *minishell, char *var)
 	char	**tmp_env;
 	int		len;
 
-	len = ft_countstrarr(minishell->env);
 	index = get_env_index(minishell, var);
 	if (index == -1)
 		return ;
 	len = ft_countstrarr(minishell->env);
-	tmp_env = (char **)ft_calloc(sizeof(char *), len + 1);
-	if (tmp_env == NULL)
+	if (!(tmp_env = (char **)ft_calloc(sizeof(char *), len + 1)))
 		return ;
 	i = 0;
 	j = 0;
