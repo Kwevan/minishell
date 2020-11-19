@@ -6,11 +6,47 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/09 18:51:23 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/17 17:55:38 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			check_equality(char *var)
+{
+	int		i;
+
+	if (!ft_strlen(var))
+		return (-1);
+	i = 0;
+	while (var[i])
+	{
+		if (i == 0 && var[i] == '=')
+			return (-1);
+		if (var[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int		ft_isvalidenv(char *env)
+{
+	int		i;
+
+	if (ft_isdigit(env[0]) == 1)
+		return (-1);
+	if (env[0] == '=')
+		return (-2);
+	i = 0;
+	while (env[i] && env[i] != '=')
+	{
+		if (ft_isalnum(env[i]) == 0)
+			return (-3);
+		i++;
+	}
+	return (1);
+}
 
 int		ft_isenv(t_minishell *minishell, char *var)
 {

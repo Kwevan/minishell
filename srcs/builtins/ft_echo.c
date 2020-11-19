@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:38:25 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/05 18:50:06 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/17 17:00:01 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_check_option(char *cmd)
 		return (0);
 }
 
-void		ft_echo(char **cmd)
+void		ft_echo(t_minishell *minishell, char **cmd)
 {
 	int		argc;
 	int		i;
@@ -46,4 +46,5 @@ void		ft_echo(char **cmd)
 	}
 	else
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	minishell->ret = 0;
 }

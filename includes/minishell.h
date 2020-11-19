@@ -37,7 +37,6 @@ typedef struct	s_minishell
 	int			pipe[2];
 	int			ret;
 	pid_t		pid;
-	int			status;
 }				t_minishell;
 
 typedef struct	s_redir
@@ -71,6 +70,9 @@ void			add_env(t_minishell *minishell, char *var);
 void			remove_env(t_minishell *minishell, char *var);
 int				get_env_index(t_minishell *minishell, char *var);
 int				ft_isenv(t_minishell *minishell, char *var);
+int				check_equality(char *var);
+int				ft_isvalidenv(char *env);
+void			print_sortenv(t_minishell *minishell);
 
 /*
 ** EXEC
@@ -87,11 +89,12 @@ char			*ft_get_bin_path(t_minishell *mini, char *bin);
 */
 
 void			ft_pwd(t_minishell *mini);
-void			ft_echo(char **cmd);
+void			ft_echo(t_minishell *minishell, char **cmd);
 void			ft_exit(t_minishell *mini, char **args);
 void			ft_cd(t_minishell *minishell, char **cmd);
 void			ft_env(t_minishell *minishell);
 void			ft_unset(t_minishell *minishell, char **cmd);
+void			ft_export(t_minishell *minishell, char **cmd);
 
 /*
 **  PARSER

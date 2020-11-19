@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/09 19:15:44 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:24:05 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void		remove_env(t_minishell *minishell, char *var)
 	char	**tmp_env;
 	int		len;
 
-	len = ft_countstrarr(minishell->env);
 	index = get_env_index(minishell, var);
 	if (index == -1)
 		return ;
+	len = ft_countstrarr(minishell->env);
 	tmp_env = (char **)ft_calloc(sizeof(char *), len + 1);
 	if (tmp_env == NULL)
 		return ;
@@ -71,20 +71,23 @@ void		add_env(t_minishell *minishell, char *var)
 {
 	char	**tmp_env;
 	int		i;
+	int		j;
 	int		len;
 
-	len = ft_countstrarr(minishell->env);
 	remove_env(minishell, var);
+	len = ft_countstrarr(minishell->env);
 	tmp_env = (char **)ft_calloc(sizeof(char *), len + 2);
 	if (tmp_env == NULL)
 		return ;
 	i = 0;
+	j = 0;
 	while (minishell->env[i])
 	{
-		tmp_env[i] = ft_strdup(minishell->env[i]);
+		tmp_env[j] = ft_strdup(minishell->env[i]);
 		i++;
+		j++;
 	}
-	tmp_env[i] = ft_strdup(var);
+	tmp_env[j] = ft_strdup(var);
 	ft_freestrarr(minishell->env);
 	minishell->env = tmp_env;
 }

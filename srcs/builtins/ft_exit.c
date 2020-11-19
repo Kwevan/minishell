@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:49:34 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 13:04:37 by yay              ###   ########.fr       */
+/*   Updated: 2020/11/17 17:02:27 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_set_exit_status(t_minishell *mini, char *arg)
 		{
 			ft_putstr_fd("bash: exit: ", STDERR_FILENO);
 			ft_putstr_fd(arg, STDERR_FILENO);
-			ft_putstr_fd(" numeric argument require", STDERR_FILENO);
+			ft_putstr_fd(" numeric argument require\n", STDERR_FILENO);
 		}
 	}
 }
@@ -45,7 +45,7 @@ void	ft_exit(t_minishell *mini, char **args)
 {
 	if (args[0] && args[1])
 	{
-		ft_putstr_fd("bash: exit: too many arguments", STDERR_FILENO);
+		ft_putstr_fd("bash: exit: too many argument\n", STDERR_FILENO);
 		mini->ret = 1;
 		return ;
 	}
