@@ -1,4 +1,3 @@
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -58,9 +57,10 @@ typedef struct	s_redir
 **	ROOT
 */
 
-void			ft_prompt_msg();
+void			ft_prompt_msg(void);
 void			get_input(t_minishell *mini);
 int				handle_input(t_minishell *mini);
+void			handle_signal(void);
 
 /*
 **	ENV
@@ -80,7 +80,7 @@ void			print_sortenv(t_minishell *minishell);
 
 void			ft_exec_commands(t_minishell *mini, char **commands);
 void			ft_exec_command(t_minishell *mini, char **command);
-int				exec_bin(t_minishell *minishell, char **command);
+void			exec_bin(t_minishell *minishell, char **command);
 int				exec_builtin(t_minishell *minishell, char **command);
 char			*ft_get_bin_path(t_minishell *mini, char *bin);
 

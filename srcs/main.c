@@ -6,45 +6,82 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:44:31 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:43:59 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		init_env(t_minishell *minishell, char **env)
+t_minishell		g_minishell;
+
+static void		handle_ctrl_c(int signal)
+{
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	if (!(g_minishell.pid))
+	{
+		g_minishell.ret = 130;
+		ft_prompt_msg();
+	}
+	else
+		kill(g_minishell.pid, signal);
+}
+
+static void		handle_ctrl_bl(int signal)
+{
+	char	*str_signal;
+
+	str_signal = ft_itoa(signal);
+	if (g_minishell.pid)
+	{
+		kill(g_minishell.pid, signal);
+		g_minishell.ret = 131;
+		ft_putstr_fd("\nQuit : ", STDERR_FILENO);
+		ft_putstr_fd(str_signal, STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+	}
+	free(str_signal);
+}
+
+void			handle_signal(void)
+{
+	if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
+		ft_putstr_fd("SIGINT error", STDOUT_FILENO);
+	if (signal(SIGQUIT, &handle_ctrl_bl) == SIG_ERR)
+		ft_putstr_fd("SIGQUIT error", STDOUT_FILENO);
+}
+
+static void		init_env(char **env)
 {
 	int			i;
 	int			len;
 
 	len = ft_strlen2(env);
-	minishell->env = (char **)ft_calloc(sizeof(char *), (len + 1));
-	if (!(minishell->env))
-		exit_shell(minishell, 1);
+	g_minishell.env = (char **)ft_calloc(sizeof(char *), (len + 1));
+	if (!(g_minishell.env))
+		exit_shell(&g_minishell, 1);
 	i = 0;
 	while (env[i])
 	{
-		minishell->env[i] = ft_strdup(env[i]);
-		if (!(minishell->env[i]))
-			exit_shell(minishell, 1);
+		g_minishell.env[i] = ft_strdup(env[i]);
+		if (!(g_minishell.env[i]))
+			exit_shell(&g_minishell, 1);
 		i++;
 	}
 }
 
 int				main(int argc, char **argv, char **env)
 {
-	t_minishell	minishell;
-
 	(void)argc;
 	(void)argv;
-	ft_bzero(&minishell, sizeof(t_minishell));
+	ft_bzero(&g_minishell, sizeof(t_minishell));
 	ft_putstr_fd("\nMINISHELL 42 by kgouacid & afoulqui\n\n", 1);
-	init_env(&minishell, env);
+	init_env(env);
+	handle_signal();
 	while (1)
 	{
 		ft_prompt_msg();
-		get_input(&minishell);
-		handle_input(&minishell);
+		get_input(&g_minishell);
+		handle_input(&g_minishell);
 	}
-	return (0);
+	return (g_minishell.ret);
 }
