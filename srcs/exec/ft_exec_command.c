@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/20 16:41:22 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/20 18:06:29 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void			exec_bin(t_minishell *minishell, char **command)
 		ft_strdel(&bin_path);
 		exit(EXIT_SUCCESS);
 	}
+	minishell->pid = 0;
 	ft_strdel(&bin_path);
 }
 
