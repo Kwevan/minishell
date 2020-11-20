@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/20 18:06:29 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 18:23:14 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,26 @@ int				exec_builtin(t_minishell *minishell, char **command)
 	return (1);
 }
 
+static int		print_errorcmd(char *cmd, int code)
+{
+	if (code == 1)
+		ft_putstr_fd("minishell: fork error\n", STDOUT_FILENO);
+	else if (code == 2)
+	{
+		ft_putstr_fd("minishell: ", STDOUT_FILENO);
+		ft_putstr_fd(cmd, STDOUT_FILENO);
+		ft_putstr_fd(": command not found\n", STDOUT_FILENO);
+	}
+	return (127);
+}
+
 void			exec_bin(t_minishell *minishell, char **command)
 {
 	char *bin_path;
 
-	bin_path = ft_get_bin_path(minishell, command[0]);
 	minishell->pid = fork();
 	if (minishell->pid == -1)
-	{
-		ft_putstr_fd(strerror(errno), STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	}
+		exit(print_errorcmd(command[0], 1));
 	else if (minishell->pid > 0)
 	{
 		waitpid(minishell->pid, &minishell->ret, 0);
@@ -51,16 +60,16 @@ void			exec_bin(t_minishell *minishell, char **command)
 	}
 	else
 	{
+		bin_path = ft_get_bin_path(minishell, command[0]);
 		if (execve(bin_path, command, minishell->env) == -1)
 		{
-			ft_putstr_fd(strerror(errno), STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
+			ft_strdel(&bin_path);
+			exit(print_errorcmd(command[0], 2));
 		}
 		ft_strdel(&bin_path);
 		exit(EXIT_SUCCESS);
 	}
 	minishell->pid = 0;
-	ft_strdel(&bin_path);
 }
 
 void			ft_exec_command(t_minishell *minishell, char **command)
