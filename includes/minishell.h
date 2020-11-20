@@ -60,6 +60,7 @@ typedef struct	s_redir
 void			ft_prompt_msg();
 void			get_input(t_minishell *mini);
 int				handle_input(t_minishell *mini);
+void			handle_signal();
 
 /*
 **	ENV
