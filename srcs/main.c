@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/20 15:43:59 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:28:09 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ft_bzero(&g_minishell, sizeof(t_minishell));
-	ft_putstr_fd("\nMINISHELL 42 by kgouacid & afoulqui\n\n", 1);
+	ft_putstr_fd("\nMINISHELL 42 by kgouacid & afoulqui\n\n", STDERR_FILENO);
 	init_env(env);
 	handle_signal();
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:38:25 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/17 17:00:01 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:31:35 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		ft_echo(t_minishell *minishell, char **cmd)
 		while (cmd[i])
 		{
 			ft_putstr_fd(cmd[i], 1);
-			if (i < argc)
+			if (i < argc && cmd[i + 1])
 				ft_putstr_fd(" ", STDOUT_FILENO);
 			i++;
 		}
