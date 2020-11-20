@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:19:00 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/13 17:11:46 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/20 10:46:10 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		ft_is_in_str_quote(char c, char *str)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (str[i])
@@ -52,7 +52,7 @@ static int		ft_count_word_quote(char *str, char *charset)
 	return (nb);
 }
 
-static char	*ft_cut_word_quote(char *str, char *charset, int *i)
+static char		*ft_cut_word_quote(char *str, char *charset, int *i)
 {
 	int			j;
 	int			len;
@@ -79,12 +79,12 @@ static char	*ft_cut_word_quote(char *str, char *charset, int *i)
 	return (strnew);
 }
 
-char	**ft_split_quote(char *str, char *charset)
+char			**ft_split_quote(char *str, char *charset)
 {
-	int		i;
-	char	**dest;
-	int		j;
-	int		dest_size;
+	int			i;
+	char		**dest;
+	int			j;
+	int			dest_size;
 
 	i = 0;
 	j = 0;
