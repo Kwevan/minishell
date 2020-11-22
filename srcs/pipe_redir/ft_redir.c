@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/18 18:22:33 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/22 11:00:24 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_get_redir_file(t_minishell *mini, t_redir *redir, char *cmd, int i)
 	return (0);
 }
 
-int		ft_get_redir_cmd(t_redir *redir, char *cmd, int i)
+int		ft_get_redir_cmd(t_minishell *mini, t_redir *redir, char *cmd, int i)
 {
 	redir->redir_cmd = ft_substr(cmd, 0, i);
 	redir->redir = 1;
@@ -62,6 +62,7 @@ int		ft_get_redir_cmd(t_redir *redir, char *cmd, int i)
 		i += 1;
 	if (!cmd[i])
 	{
+		mini->ret = 2;
 		ft_putstr_fd("Parse error near \\n\n", 2);
 		return (1);
 	}
@@ -91,7 +92,7 @@ int		ft_redir(t_minishell *mini, char *cmd, int *fd_in)
 		{
 			if (redir.redir == 0 && (cmd[i] == '>' || cmd[i] == '<'))
 			{
-				if (ft_get_redir_cmd(&redir, cmd, i))
+				if (ft_get_redir_cmd(mini, &redir, cmd, i))
 					return (1);
 			}
 			else if (redir.redir && ft_get_redir_file(mini, &redir, cmd, i))

@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/21 12:09:10 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/22 17:22:23 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_parent(t_minishell *mini, int p[2], int fd_in, int last)
 		ft_putendl_fd("error: wait", 2);
 	if (WEXITSTATUS(mini->ret))
 		mini->ret = WEXITSTATUS(mini->ret);
-	ft_putstr_fd(" [ ", 2); //todo
-	ft_putnbr_fd(mini->ret, 2);
-	ft_putstr_fd(" ] ", 2);
+//	ft_putstr_fd(" [ ", 2); //todo
+//	ft_putnbr_fd(mini->ret, 2);
+//	ft_putstr_fd(" ] ", 2);
 	ft_close(p[1]);
 	ft_close(fd_in);
 	if (!last)
@@ -67,8 +67,8 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		parsed = ft_parse(mini, splitted);
 		ft_exec_pipe_cmd(mini, parsed);
 		ft_freestrarr(parsed);
-		//exit(EXIT_SUCCESS);
-		exit(129); //todo
+		exit(EXIT_SUCCESS);
+//		exit(129); //todo
 	}
 	else
 		ft_parent(mini, p, *fd_in, last);
@@ -83,6 +83,8 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 
 	if (!ft_is_pipe_or_redir(cmd))
 		return (0);
+	if (!ft_check_pipe(mini, cmd))
+		return (1);
 	splitted = ft_split_quote(cmd, "|");
 	i = 0;
 	fd_in = 0;
