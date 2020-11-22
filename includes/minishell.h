@@ -34,6 +34,7 @@ typedef struct	s_minishell
 	int			has_pipe;
 	int			tube[3];
 	int			pipe[2];
+	int			pipe_err;
 	int			ret;
 	pid_t		pid;
 }				t_minishell;

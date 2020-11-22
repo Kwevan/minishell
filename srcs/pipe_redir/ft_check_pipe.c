@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 16:00:30 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/22 17:20:37 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/22 21:35:42 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int		ft_error(t_minishell *mini, int ret)
 {
 	ft_putendl_fd("Error with |", STDERR_FILENO);
-	mini->ret = 1;
+	mini->ret = 2;
+	mini->pipe_err = 1;
 	return (ret);
 }
 

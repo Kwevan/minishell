@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/22 17:05:00 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/22 21:49:42 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 			new = ft_parse(mini, splitted_cmd);
 			ft_exec_command(mini, new);
 		}
-		if (mini->ret == 1)
+		if (mini->pipe_err == 1)
 			break ;
 		i++;
 	}
