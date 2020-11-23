@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/20 18:23:14 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/21 12:08:25 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int				exec_builtin(t_minishell *minishell, char **command)
 	return (1);
 }
 
-static int		print_errorcmd(char *cmd, int code)
+int				print_errorcmd(char *cmd, int code)
 {
 	if (code == 1)
 		ft_putstr_fd("minishell: fork error\n", STDOUT_FILENO);
 	else if (code == 2)
 	{
-		ft_putstr_fd("minishell: ", STDOUT_FILENO);
-		ft_putstr_fd(cmd, STDOUT_FILENO);
-		ft_putstr_fd(": command not found\n", STDOUT_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
 	return (127);
 }
@@ -57,6 +57,8 @@ void			exec_bin(t_minishell *minishell, char **command)
 	{
 		waitpid(minishell->pid, &minishell->ret, 0);
 		kill(minishell->pid, SIGTERM);
+		if (WEXITSTATUS(minishell->ret))
+			minishell->ret = WEXITSTATUS(minishell->ret);
 	}
 	else
 	{

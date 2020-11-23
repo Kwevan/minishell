@@ -83,6 +83,7 @@ void			ft_exec_command(t_minishell *mini, char **command);
 void			exec_bin(t_minishell *minishell, char **command);
 int				exec_builtin(t_minishell *minishell, char **command);
 char			*ft_get_bin_path(t_minishell *mini, char *bin);
+int				print_errorcmd(char *cmd, int code);
 
 /*
 **	BUILTINS

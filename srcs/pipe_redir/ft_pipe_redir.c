@@ -6,16 +6,21 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/17 22:08:56 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/21 12:09:10 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_parent(pid_t *pid, int p[2], int fd_in, int last)
+void	ft_parent(t_minishell *mini, int p[2], int fd_in, int last)
 {
-	if (wait(pid) == -1)
+	if (wait(&mini->ret) == -1)
 		ft_putendl_fd("error: wait", 2);
+	if (WEXITSTATUS(mini->ret))
+		mini->ret = WEXITSTATUS(mini->ret);
+	ft_putstr_fd(" [ ", 2); //todo
+	ft_putnbr_fd(mini->ret, 2);
+	ft_putstr_fd(" ] ", 2);
 	ft_close(p[1]);
 	ft_close(fd_in);
 	if (!last)
@@ -32,8 +37,12 @@ void	ft_exec_pipe_cmd(t_minishell *mini, char **parsed)
 	{
 		bin_path = ft_get_bin_path(mini, parsed[0]);
 		if ((execve(bin_path, parsed, mini->env)) == -1)
-			ft_putendl_fd(strerror(errno), 2);
+		{
+			ft_strdel(&bin_path);
+			exit(print_errorcmd(parsed[0], 2));
+		}
 		ft_strdel(&bin_path);
+//		mini->pid = 0;
 	}
 }
 
@@ -58,10 +67,11 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		parsed = ft_parse(mini, splitted);
 		ft_exec_pipe_cmd(mini, parsed);
 		ft_freestrarr(parsed);
-		exit(EXIT_SUCCESS);
+		//exit(EXIT_SUCCESS);
+		exit(129); //todo
 	}
 	else
-		ft_parent(&mini->pid, p, *fd_in, last);
+		ft_parent(mini, p, *fd_in, last);
 }
 
 int		ft_pipe_redir(t_minishell *mini, char *cmd)
