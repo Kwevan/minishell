@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 11:11:11 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/22 11:00:24 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/23 15:23:16 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_get_redir_file(t_minishell *mini, t_redir *redir, char *cmd, int i)
 	ft_strdel(&redir->redir_fname);
 	redir->redir_fname = ft_substr(cmd, redir->start,
 		i - redir->start + (cmd[i + 1] == 0));
+	ft_join_redir(mini, redir, cmd + redir->start, i + (cmd[i + 1] == 0));
 	if (get_fd(redir->type, redir->redir_fname, mini, 1) == -1)
 	{
 		ft_putstr_fd("Error redir", 2);
