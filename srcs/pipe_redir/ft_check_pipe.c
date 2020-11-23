@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 16:00:30 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/22 21:35:42 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/23 02:30:30 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ int		ft_check_pipe(t_minishell *mini, char *cmd)
 	{
 		open = ft_quote_open(&quotes, cmd[i]);
 		if (!open && cmd[i] == '|')
-			counter ++;
-		if (!open && counter == 1 && cmd[i] != ' '  && cmd[i] != '|')
+			counter++;
+		if (!open && counter == 1 && cmd[i] != ' ' && cmd[i] != '|')
 			counter--;
 		if (counter == 2)
 			return (ft_error(mini, 0));
 		i++;
 	}
-	if (counter == 1)
-		return (ft_error(mini, 0));
-	return (1);
+	return ((counter == 1) ? ft_error(mini, 0) : 1);
 }

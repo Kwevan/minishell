@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/22 17:22:23 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/23 02:26:33 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void	ft_parent(t_minishell *mini, int p[2], int fd_in, int last)
 		ft_putendl_fd("error: wait", 2);
 	if (WEXITSTATUS(mini->ret))
 		mini->ret = WEXITSTATUS(mini->ret);
-//	ft_putstr_fd(" [ ", 2); //todo
-//	ft_putnbr_fd(mini->ret, 2);
-//	ft_putstr_fd(" ] ", 2);
 	ft_close(p[1]);
 	ft_close(fd_in);
 	if (!last)
@@ -42,7 +39,6 @@ void	ft_exec_pipe_cmd(t_minishell *mini, char **parsed)
 			exit(print_errorcmd(parsed[0], 2));
 		}
 		ft_strdel(&bin_path);
-//		mini->pid = 0;
 	}
 }
 
@@ -68,7 +64,6 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		ft_exec_pipe_cmd(mini, parsed);
 		ft_freestrarr(parsed);
 		exit(EXIT_SUCCESS);
-//		exit(129); //todo
 	}
 	else
 		ft_parent(mini, p, *fd_in, last);
