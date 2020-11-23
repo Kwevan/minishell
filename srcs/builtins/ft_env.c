@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:08:46 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:42:43 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/23 15:43:45 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_var(char *env)
+/*static int	check_var(char *env)
 {
 	int		i;
 	char	**split;
@@ -33,7 +33,7 @@ static int	check_var(char *env)
 	}
 	free(key);
 	return (1);
-}
+}*/
 
 void		ft_env(t_minishell *minishell)
 {
@@ -42,11 +42,8 @@ void		ft_env(t_minishell *minishell)
 	i = 0;
 	while (minishell->env[i])
 	{
-		if (check_var(minishell->env[i]) && check_equality(minishell->env[i]))
-		{
-			ft_putstr_fd(minishell->env[i], STDOUT_FILENO);
-			ft_putstr_fd("\n", STDOUT_FILENO);
-		}
+		ft_putstr_fd(minishell->env[i], STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 	minishell->ret = 0;
