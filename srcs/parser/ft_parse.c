@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/24 14:24:40 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/24 14:26:18 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,6 @@ char	**ft_parse(t_minishell *mini, char **words)
 			if (ft_strlen(words[i]) == 0)
 			{
 				ft_del_string(&words, i);
-/*				ft_strdel(&words[i]);
-				j = i;
-				while (words[j + 1])
-				{
-					words[j] = words[j + 1];
-					j++;
-				}
-				words[j] = NULL;
-*/
 				continue;
 			}
 		}
