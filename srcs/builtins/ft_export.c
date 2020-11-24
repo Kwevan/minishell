@@ -6,29 +6,33 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:17:47 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:21:25 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:46:58 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		print_exporterror(int error, char *arg)
+static void		ft_updateenv(t_minishell *minishell, char *env_update)
 {
-	int		j;
+	char	**split;
+	char	*key;
+	char	*value;
+	char	*new_env;
+	int		ret;
 
-	if (error == -1)
-		ft_putstr_fd("export: not valid in this context: ", STDOUT_FILENO);
-	else if (error == -2)
-		ft_putstr_fd("zsh: bad assignment", STDOUT_FILENO);
-	else if (error == -3)
-		ft_putstr_fd("export: not an identifier: ", STDOUT_FILENO);
-	j = 0;
-	while (arg[j] && arg[j] != '=')
-	{
-		write(STDOUT_FILENO, &arg[j], 1);
-		j++;
-	}
-	ft_putstr_fd("\n", STDOUT_FILENO);
+	split = ft_split2(env_update, "+=");
+	key = ft_strdup(split[0]);
+	value = ft_strdup(split[1]);
+	ft_freestrarr(split);
+	ret = get_env_index(minishell, key);
+	if (ret < 0)
+		new_env = ft_strjoin2(key, "=", value);
+	else
+		new_env = ft_strjoin(minishell->env[ret], value);
+	add_env(minishell, new_env);
+	free(key);
+	free(value);
+	free(new_env);
 }
 
 static int		ft_checkexporterr(t_minishell *minishell, char *cmd)
@@ -38,7 +42,6 @@ static int		ft_checkexporterr(t_minishell *minishell, char *cmd)
 	err_ret = ft_isvalidenv(cmd);
 	if (err_ret < 0)
 	{
-		print_exporterror(err_ret, cmd);
 		minishell->ret = 1;
 		return (1);
 	}
@@ -61,10 +64,10 @@ void			ft_export(t_minishell *minishell, char **cmd)
 		{
 			if (ft_checkexporterr(minishell, cmd[i]) == 1)
 				return ;
-			if (check_equality(cmd[i]))
-				add_env(minishell, cmd[i]);
+			else if (check_plus(cmd[i]) > 0)
+				ft_updateenv(minishell, cmd[i]);
 			else
-				add_env(minishell, ft_strjoin(cmd[i], "=''"));
+				add_env(minishell, cmd[i]);
 			i++;
 		}
 	}
