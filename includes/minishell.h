@@ -104,6 +104,7 @@ void			ft_export(t_minishell *minishell, char **cmd);
 
 char			**ft_parse(t_minishell *mini, char **words);
 int				ft_strlen_quotes(char *word);
+void			ft_del_string(char ***p, int i);
 
 /*
 **  REDIR
