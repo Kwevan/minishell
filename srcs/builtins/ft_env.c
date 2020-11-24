@@ -6,34 +6,11 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:08:46 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/23 15:43:45 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:29:17 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*static int	check_var(char *env)
-{
-	int		i;
-	char	**split;
-	char	*key;
-
-	split = ft_split(env, '=');
-	key = ft_strdup(split[0]);
-	ft_freestrarr(split);
-	i = 0;
-	while (key[i])
-	{
-		if ((key[i] < 65 || key[i] > 90) && key[i] != '_')
-		{
-			free(key);
-			return (0);
-		}
-		i++;
-	}
-	free(key);
-	return (1);
-}*/
 
 void		ft_env(t_minishell *minishell)
 {
