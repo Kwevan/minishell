@@ -12,6 +12,7 @@ SRC_FILES =  ft_atoi.c\
                 ft_strdup.c\
                 ft_isdigit.c\
                 ft_strjoin.c\
+                ft_strjoin_free.c\
                 ft_isalpha.c\
                 ft_memccpy.c\
                 ft_strlcat.c\

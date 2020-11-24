@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:27 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/30 18:45:47 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:07:12 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int				ft_atoi(const char *nptr);
 char			*ft_itoa(int n);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_free(char const *s1, char const *s2, int to_free);
 char			*ft_strtrim(const char *s1, const char *set);
 char			**ft_split(const char *s, char c);
 char			**ft_split2(char *s, char *c);

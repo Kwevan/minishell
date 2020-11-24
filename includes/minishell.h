@@ -105,6 +105,7 @@ void			ft_export(t_minishell *minishell, char **cmd);
 
 char			**ft_parse(t_minishell *mini, char **words);
 int				ft_strlen_quotes(char *word);
+void			ft_del_string(char ***p, int i);
 
 /*
 **  REDIR
@@ -117,7 +118,8 @@ int				ft_redir(t_minishell *mini, char *cmd, int *fd_in);
 int				ft_exec_redir(t_minishell *mini, t_redir *redir, int *fd_in);
 int				ft_redir_type(char c, char d, int *type, int *i);
 int				get_fd(int type, char *fname, t_minishell *mini, int close);
-void			ft_join_redir(t_minishell *mini, t_redir *redir2, char *redir, int max);
+void			ft_join_redir(t_minishell *mini,
+					t_redir *redir2, char *redir, int max);
 
 /*
 **	UTILS
