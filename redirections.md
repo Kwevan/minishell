@@ -88,3 +88,9 @@ error no such file or dir
 echo ok > "oui>i"
 
 ---
+
+echo it > empty_file1  joins the > empty_file2 parts > empty_file3 > empty_file4 > file of this command
+
+> its echo magic
+
+echo ok > ok abc'>'def > ok

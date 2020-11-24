@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/10/28 17:17:41 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/22 22:08:46 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ void	get_input(t_minishell *mini)
 		i++;
 	}
 	mini->input[i] = '\0';
+	if (ret == 0)
+		exit_shell(mini, mini->ret);
 	if (ret < 1)
 	{
-		ft_putstr_fd(strerror(errno), 1);
+		ft_putstr_fd(strerror(errno), 2);
 		exit_shell(mini, 1);
 	}
 	parse_input(mini, mini->env);

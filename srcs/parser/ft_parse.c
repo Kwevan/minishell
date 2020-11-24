@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 11:13:24 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/24 10:24:38 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,28 @@ void	ft_remove_quotes(t_minishell *mini, char **word)
 	*word = res;
 }
 
+// a part les leaks de cette fonction tout va bien
+// soon fixed
 void	replace_var(t_minishell *mini, char *word,
 			int var_name_len, char **parsed)
 {
 	char *var_name;
 	char *var;
 
+	if (word[0] == '?' || ft_isdigit(word[0]))
+		{
+		ft_putstr_fd("on gere ça coco tkt", 1);
+		if (word[0] == '?')
+		{
+			*parsed = ft_strjoin(*parsed, ft_itoa(mini->ret));
+	
+		}
+			*parsed = ft_strjoin(*parsed, word + 1);
+		return ;
+	}
 	var_name = ft_strndup(word, var_name_len);
 	if (!var_name_len || var_name[0] == ' ')
-		*parsed = ft_strjoin(*parsed, "$");
+		*parsed = ft_strjoin(*parsed, "$");//joli leak
 	else
 	{
 		var = ft_get_envv(mini, mini->env, var_name);

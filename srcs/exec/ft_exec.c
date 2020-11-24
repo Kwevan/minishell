@@ -25,15 +25,16 @@ void		ft_exec_commands(t_minishell *mini, char **commands)
 		if (ft_check_multilines(commands[i]))
 		{
 			ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);
-			ft_freestrarr(commands);
-			return ;
+			mini->ret = 1;
 		}
-		if (!ft_pipe_redir(mini, commands[i]))
+		else if (!ft_pipe_redir(mini, commands[i]))
 		{
 			splitted_cmd = ft_split_quote(commands[i], " ");
 			new = ft_parse(mini, splitted_cmd);
 			ft_exec_command(mini, new);
 		}
+		if (mini->pipe_err == 1)
+			break ;
 		i++;
 	}
 	ft_freestrarr(new);
