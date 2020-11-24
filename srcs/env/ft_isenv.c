@@ -6,11 +6,25 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 16:57:37 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:28:51 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		check_plus(char *var)
+{
+	int		i;
+
+	i = 0;
+	while (var[i])
+	{
+		if (i != 0 && var[i - 1] == '+' && var[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int		check_equality(char *var)
 {
@@ -33,18 +47,26 @@ int		check_equality(char *var)
 int		ft_isvalidenv(char *env)
 {
 	int		i;
+	int		len;
+	char	**split;
 
 	if (ft_isdigit(env[0]) == 1)
 		return (-1);
 	if (env[0] == '=')
 		return (-2);
+	split = ft_split(env, '=');
+	len = ft_strlen(split[0]);
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (split[0][i])
 	{
-		if (ft_isalnum(env[i]) == 0)
+		if (ft_isalnum(split[0][i]) == 0 && split[0][len - 1] != '+')
+		{
+			ft_freestrarr(split);
 			return (-3);
+		}
 		i++;
 	}
+	ft_freestrarr(split);
 	return (1);
 }
 

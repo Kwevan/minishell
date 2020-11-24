@@ -74,6 +74,7 @@ int				ft_isenv(t_minishell *minishell, char *var);
 int				check_equality(char *var);
 int				ft_isvalidenv(char *env);
 void			print_sortenv(t_minishell *minishell);
+int				check_plus(char *var);
 
 /*
 ** EXEC

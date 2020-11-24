@@ -6,13 +6,13 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 17:41:05 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/17 17:41:55 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/23 16:14:45 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	sort_env(char **env, int len)
+static void		sort_env(char **env, int len)
 {
 	int		ord;
 	int		i;
@@ -38,7 +38,24 @@ static void	sort_env(char **env, int len)
 	}
 }
 
-void		print_sortenv(t_minishell *minishell)
+static void		print_env(char *env)
+{
+	char	**split;
+
+	split = ft_split(env, '=');
+	ft_putstr_fd("declare -x ", STDOUT_FILENO);
+	ft_putstr_fd(split[0], STDOUT_FILENO);
+	if (split[1])
+	{
+		ft_putstr_fd("=\"", STDOUT_FILENO);
+		ft_putstr_fd(split[1], STDOUT_FILENO);
+		ft_putstr_fd("\"", STDOUT_FILENO);
+	}
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_freestrarr(split);
+}
+
+void			print_sortenv(t_minishell *minishell)
 {
 	int		i;
 	int		j;
@@ -59,8 +76,7 @@ void		print_sortenv(t_minishell *minishell)
 	i = 0;
 	while (i < argc)
 	{
-		ft_putstr_fd(tmp[i], STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		print_env(tmp[i]);
 		i++;
 	}
 	ft_freestrarr(tmp);
