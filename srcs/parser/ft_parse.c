@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/24 10:24:38 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/24 12:33:16 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,32 @@ void	ft_remove_quotes(t_minishell *mini, char **word)
 	*word = res;
 }
 
-// a part les leaks de cette fonction tout va bien
-// soon fixed
 void	replace_var(t_minishell *mini, char *word,
 			int var_name_len, char **parsed)
 {
-	char *var_name;
-	char *var;
+	char	*var_name;
+	char	*var;
 
+	var_name = NULL;
 	if (word[0] == '?' || ft_isdigit(word[0]))
-		{
-		ft_putstr_fd("on gere ça coco tkt", 1);
+	{
 		if (word[0] == '?')
-		{
-			*parsed = ft_strjoin(*parsed, ft_itoa(mini->ret));
-	
-		}
-			*parsed = ft_strjoin(*parsed, word + 1);
-		return ;
+			*parsed = ft_strjoin_free(*parsed, ft_itoa(mini->ret), 1);
+		*parsed = ft_strjoin_free(*parsed, word + 1, 1);
 	}
-	var_name = ft_strndup(word, var_name_len);
-	if (!var_name_len || var_name[0] == ' ')
-		*parsed = ft_strjoin(*parsed, "$");//joli leak
 	else
 	{
-		var = ft_get_envv(mini, mini->env, var_name);
-		*parsed = ft_strjoin(*parsed, var);
+		if (!(var_name = ft_strndup(word, var_name_len)))
+			exit_shell(mini, 1);
+		if (!var_name_len || var_name[0] == ' ')
+			*parsed = ft_strjoin_free(*parsed, "$", 1);
+		else
+		{
+			var = ft_get_envv(mini, mini->env, var_name);
+			*parsed = ft_strjoin_free(*parsed, var, 1);
+		}
 	}
-	if (!var_name || !*parsed)
+	if (!*parsed)
 		exit_shell(mini, 1);
 	free(var_name);
 }
