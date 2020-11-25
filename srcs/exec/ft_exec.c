@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 22:02:33 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/25 17:44:40 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/25 18:12:13 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void		ft_exec_commands(t_minishell *mini)
 	while (mini->commands[i])
 	{
 		if (ft_check_multilines(mini->commands[i]))
-		{
-			ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO);
-			mini->ret = 1;
-		}
+			(mini->ret = 1) ? ft_putstr_fd("NO MULTILINE\n", STDERR_FILENO) : 0;
 		else if (!ft_pipe_redir(mini, mini->commands[i]))
 		{
 			splitted_cmd = ft_split_quote(mini->commands[i], " ");
