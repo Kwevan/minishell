@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/25 11:21:50 by kwe               #+#    #+#             */
+/*   Updated: 2020/11/25 11:21:52 by kwe              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -60,7 +72,7 @@ typedef struct	s_redir
 
 void			ft_prompt_msg(void);
 void			get_input(t_minishell *mini);
-int				handle_input(t_minishell *mini);
+void			handle_input(t_minishell *mini);
 void			handle_signal(void);
 
 /*
@@ -131,5 +143,6 @@ int				ft_countstrarr(char **arr);
 char			*ft_removequotes(char *str);
 void			ft_close(int fd);
 char			*ft_remove_space(char *str);
+int				ft_isallspace(char *s);
 
 #endif
