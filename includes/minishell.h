@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:21:50 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/25 16:10:23 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/25 17:45:40 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int				check_plus(char *var);
 ** EXEC
 */
 
-void			ft_exec_commands(t_minishell *mini, char **commands);
+void			ft_exec_commands(t_minishell *mini);
 void			ft_exec_command(t_minishell *mini, char **command);
 void			exec_bin(t_minishell *minishell, char **command);
 int				exec_builtin(t_minishell *minishell, char **command);
