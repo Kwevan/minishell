@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:21:50 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/25 11:21:52 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/25 16:10:23 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_minishell
 	char		**env;
 	char		*input;
 	char		**commands;
+	char		*curr_dir;
 	int			has_pipe;
 	int			tube[3];
 	int			pipe[2];
@@ -70,7 +71,8 @@ typedef struct	s_redir
 **	ROOT
 */
 
-void			ft_prompt_msg(void);
+void			ft_prompt_msg(t_minishell *minishell);
+void			ft_editcwd(t_minishell *minishell, char *cwd);
 void			get_input(t_minishell *mini);
 void			handle_input(t_minishell *mini);
 void			handle_signal(void);
