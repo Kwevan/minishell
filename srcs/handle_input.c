@@ -6,22 +6,24 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/25 11:18:56 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/25 11:56:21 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse2(char *s, int *i, int *count, int open)
+void	parse2(char *s, int *i, int *count, t_quotes *quotes)
 {
 	int c;
+	int open;
 
 	c = 0;
 	while (s[*i] && s[*i] != ';')
 	{
-		if (s[*i] != ' ' && !open)
+		if (s[*i] != ' ')
 			c = 1;
 		(*i) += 1;
+		open = ft_quote_open(quotes, s[*i]);
 	}
 	if (c)
 		(*count) += 1;
@@ -41,7 +43,7 @@ int		ft_parse_error(char *s)
 	while (s[i] && ((open = ft_quote_open(&quotes, s[i])) != 15))
 	{
 		if (s[i] != ';')
-			parse2(s, &i, &count, open);
+			parse2(s, &i, &count, &quotes);
 		else
 		{
 			if (!open)
