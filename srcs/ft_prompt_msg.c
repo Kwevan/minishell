@@ -6,21 +6,28 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/20 15:29:27 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/25 16:18:09 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_prompt_msg(void)
+void	ft_editcwd(t_minishell *minishell, char *cwd)
+{
+	if (minishell->curr_dir)
+		free(minishell->curr_dir);
+	minishell->curr_dir = ft_strdup(cwd);
+}
+
+void	ft_prompt_msg(t_minishell *minishell)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	if (cwd)
-	{
-		ft_putstr_fd(cwd, 2);
-		ft_putstr_fd(" $ ", 2);
-		free(cwd);
-	}
+	if (!cwd && minishell->curr_dir)
+		cwd = ft_strdup(minishell->curr_dir);
+	ft_putstr_fd(cwd, 2);
+	ft_putstr_fd(" $ ", 2);
+	ft_editcwd(minishell, cwd);
+	free(cwd);
 }
