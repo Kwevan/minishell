@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/25 11:56:21 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/25 11:59:14 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	parse2(char *s, int *i, int *count, t_quotes *quotes)
 {
 	int c;
-	int open;
 
 	c = 0;
 	while (s[*i] && s[*i] != ';')
@@ -23,7 +22,7 @@ void	parse2(char *s, int *i, int *count, t_quotes *quotes)
 		if (s[*i] != ' ')
 			c = 1;
 		(*i) += 1;
-		open = ft_quote_open(quotes, s[*i]);
+		ft_quote_open(quotes, s[*i]);
 	}
 	if (c)
 		(*count) += 1;
