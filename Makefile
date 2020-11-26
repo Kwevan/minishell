@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 11:46:02 by afoulqui          #+#    #+#              #
-#    Updated: 2020/11/07 20:08:41 by kwe              ###   ########.fr        #
+#    Updated: 2020/11/26 17:33:56 by afoulqui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,48 @@ NAME		=	minishell
 LIB_DIR		=	libft
 LIBFT		=	$(LIB_DIR)/libft.a
 
+MAIN		=	main.c \
+				input.c \
+				handle_input.c \
+				ft_prompt_msg.c \
+				
+PARSER		=	ft_parse.c \
+				ft_parse_utils.c \
+				ft_del_string.c \
+
+EXEC		=	ft_exec_command.c \
+				ft_exec.c \
+				ft_get_bin_path.c \
+
+BUILTINS	=	ft_cd.c \
+				ft_echo.c \
+				ft_env.c \
+				ft_exit.c \
+				ft_export.c \
+				ft_pwd.c \
+				ft_unset.c \
+	
+ENV			=	env.c \
+				ft_get_envv.c \
+				ft_isenv.c \
+				sort_env.c \
+
+PIPE_REDIR	=	ft_check_pipe.c \
+				ft_exec_redir.c \
+				ft_is_pipe_or_redir.c \
+				ft_join_redir.c \
+				ft_pipe_redir.c \
+				ft_redir_type.c \
+				ft_redir.c \
+
+UTILS		=	freexit.c \
+				ft_close.c \
+				ft_countstrarr.c \
+				ft_isallspace.c \
+				ft_remove_space.c \
+				ft_removequotes.c \
+
+SRC_LST		=	$(MAIN) $(PARSER) $(EXEC) $(BUILTINS) $(ENV) $(PIPE_REDIR) $(UTILS)
 
 SRC_DIR		=	$(shell find srcs -type d)
 INC_DIR		=	$(shell find includes -type d) $(LIB_DIR)/includes
@@ -26,8 +68,8 @@ INC_DIR		=	$(shell find includes -type d) $(LIB_DIR)/includes
 OBJ_DIR		=	objs/
 
 LIB			=	ft
-SRC			=	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdir $(file))))
-OBJ			=	$(addprefix $(OBJ_DIR),$(SRC:%.c=%.o))
+SRC			=	$(foreach dir, $(SRC_DIR), $(SRC_LST))
+OBJ			=	$(addprefix $(OBJ_DIR),$(SRC_LST:%.c=%.o))
 HEADERS		=	$(foreach dir, $(INC_DIR), $(wildcard $(dir)/*.h))
 
 
