@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/26 15:05:09 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/26 22:30:27 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ int		ft_parse_error(char *s)
 	return (count < 0);
 }
 
+void	ft_free_commands(t_minishell *mini)
+{
+	free(mini->commands);
+	mini->commands = NULL;
+
+}
+
 void	handle_input(t_minishell *mini)
 {
 	int len;
@@ -79,6 +86,6 @@ void	handle_input(t_minishell *mini)
 		len--;
 	}
 	if (mini->commands[0] == NULL)
-		return ;
+		return (ft_free_commands(mini));
 	ft_exec_commands(mini);
 }
