@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:40:22 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/25 16:52:32 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:46:39 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char		*get_path_cd(t_minishell *minishell, char *cmd)
 static void		print_cderror(t_minishell *minishell, char *str, int code)
 {
 	if (code == 1)
-		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("cd: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:49:34 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/21 13:59:12 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:47:17 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_set_exit_status(t_minishell *mini, char *arg)
 		}
 		else
 		{
-			ft_putstr_fd("bash: exit: ", STDERR_FILENO);
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 			ft_putstr_fd(arg, STDERR_FILENO);
 			ft_putstr_fd(" numeric argument require\n", STDERR_FILENO);
 			mini->ret = 2;
@@ -57,7 +57,7 @@ void	ft_exit(t_minishell *mini, char **args)
 {
 	if (args[0] && args[1])
 	{
-		ft_putstr_fd("bash: exit: too many argument\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: too many argument\n", STDERR_FILENO);
 		mini->ret = 1;
 		return ;
 	}
