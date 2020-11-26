@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/23 15:35:26 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:22:56 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void			exec_bin(t_minishell *minishell, char **command)
 	else
 	{
 		bin_path = ft_get_bin_path(minishell, command[0]);
+		ft_putstr_fd("ok", STDERR_FILENO);
+		ft_putstr_fd(bin_path, STDERR_FILENO);
+		
 		if (execve(bin_path, command, minishell->env) == -1)
 		{
 			ft_strdel(&bin_path);
@@ -76,6 +79,8 @@ void			exec_bin(t_minishell *minishell, char **command)
 
 void			ft_exec_command(t_minishell *minishell, char **command)
 {
-	if (!exec_builtin(minishell, command))
+	if (command[0] == 0)	
+		minishell->ret = 127;
+	else if (!exec_builtin(minishell, command))
 		exec_bin(minishell, command);
 }

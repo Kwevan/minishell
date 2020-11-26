@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/24 16:40:30 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/26 15:57:33 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void	replace_var(t_minishell *mini, char *word,
 			*parsed = ft_strjoin_free(*parsed, "$", 1);
 		else
 		{
-			var = ft_get_envv(mini, mini->env, var_name);
-			*parsed = ft_strjoin_free(*parsed, var, 1);
+			if ((var = ft_get_envv(mini, mini->env, var_name)))
+				*parsed = ft_strjoin_free(*parsed, var, 1);
 		}
 	}
+	free(var_name);
 	if (!*parsed)
 		exit_shell(mini, 1);
-	free(var_name);
 }
 
 void	ft_add_char(t_minishell *mini, t_quotes *quotes, char c, char **parsed)
