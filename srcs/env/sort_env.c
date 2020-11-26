@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 17:41:05 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/23 16:14:45 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:32:33 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,28 @@ static void		sort_env(char **env, int len)
 
 static void		print_env(char *env)
 {
-	char	**split;
+	char	*key;
+	char	*value;
+	int		i;
 
-	split = ft_split(env, '=');
+	value = NULL;
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	key = ft_strndup(env, i);
+	if (env[i] == '=')
+		value = ft_strdup(&env[++i]);
 	ft_putstr_fd("declare -x ", STDOUT_FILENO);
-	ft_putstr_fd(split[0], STDOUT_FILENO);
-	if (split[1])
+	ft_putstr_fd(key, STDOUT_FILENO);
+	if (value)
 	{
 		ft_putstr_fd("=\"", STDOUT_FILENO);
-		ft_putstr_fd(split[1], STDOUT_FILENO);
+		ft_putstr_fd(value, STDOUT_FILENO);
 		ft_putstr_fd("\"", STDOUT_FILENO);
 	}
 	ft_putstr_fd("\n", STDOUT_FILENO);
-	ft_freestrarr(split);
+	free(value);
+	free(key);
 }
 
 void			print_sortenv(t_minishell *minishell)
