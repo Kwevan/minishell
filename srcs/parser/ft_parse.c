@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/26 15:57:33 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/26 22:53:54 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	replace_var(t_minishell *mini, char *word,
 	if (word[0] == '?' || ft_isdigit(word[0]))
 	{
 		if (word[0] == '?')
-			*parsed = ft_strjoin_free(*parsed, ft_itoa(mini->ret), 1);
+			*parsed = ft_strjoin_free(*parsed, ft_itoa(mini->ret), 2);
 		*parsed = ft_strjoin_free(*parsed, word + 1, 1);
 	}
 	else

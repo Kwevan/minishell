@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:16 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/26 22:30:27 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/26 22:42:44 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		ft_parse_error(char *s)
 
 void	ft_free_commands(t_minishell *mini)
 {
+	mini->ret = 0;
 	free(mini->commands);
 	mini->commands = NULL;
-
 }
 
 void	handle_input(t_minishell *mini)
