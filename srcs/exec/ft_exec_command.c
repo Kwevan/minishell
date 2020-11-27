@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/26 15:55:22 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/26 22:35:01 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ void			exec_bin(t_minishell *minishell, char **command)
 void			ft_exec_command(t_minishell *minishell, char **command)
 {
 	if (command[0] == 0)
-	{
-		print_errorcmd(command[0], 3);
-		return ;
-	}
-	if (!exec_builtin(minishell, command))
+		minishell->ret = 127;
+	else if (!exec_builtin(minishell, command))
+
 		exec_bin(minishell, command);
 }
