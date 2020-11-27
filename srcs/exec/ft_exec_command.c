@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/26 22:35:01 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/27 15:10:33 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				exec_builtin(t_minishell *minishell, char **command)
 	else if (!ft_strcmp(command[0], "pwd"))
 		ft_pwd(minishell);
 	else if (!ft_strcmp(command[0], "exit"))
-		ft_exit(minishell, command + 1);
+		ft_exit(minishell, command);
 	else if (!ft_strcmp(command[0], "unset"))
 		ft_unset(minishell, command);
 	else if (!ft_strcmp(command[0], "export"))
@@ -79,6 +79,5 @@ void			ft_exec_command(t_minishell *minishell, char **command)
 	if (command[0] == 0)
 		minishell->ret = 127;
 	else if (!exec_builtin(minishell, command))
-
 		exec_bin(minishell, command);
 }
