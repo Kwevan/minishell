@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/19 17:01:30 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 17:51:23 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			get_env_index(t_minishell *minishell, char *var)
 	char	*key;
 	char	**split;
 
-	split = ft_split(var, '=');
+	split = ft_split2(var, "=");
 	key = ft_strdup(split[0]);
 	ft_freestrarr(split);
 	len = ft_strlen(key);

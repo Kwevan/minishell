@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:44:09 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/08 11:21:02 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/27 17:50:40 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_get_bin_path(t_minishell *mini, char *bin)
 
 	i = 0;
 	path = ft_get_envv(mini, mini->env, "PATH");
-	if (!(folders = ft_split(path, ':')))
+	if (!(folders = ft_split2(path, ":")))
 		exit_shell(mini, EXIT_FAILURE);
 	while (folders[i])
 	{
