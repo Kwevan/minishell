@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:40:22 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 16:32:50 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 17:56:26 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 static char		*get_path_cd(t_minishell *minishell, char *cmd)
 {
-	char	*path;
-
 	if (!cmd)
-		path = ft_get_envv(minishell, minishell->env, "HOME");
+		return (ft_get_envv(minishell, minishell->env, "HOME"));
 	else
-		path = ft_strdup(cmd);
-	return (path);
+		return (cmd);
 }
 
 static void		print_cderror(t_minishell *minishell, char *str, int code)
@@ -55,5 +52,5 @@ void			ft_cd(t_minishell *minishell, char **cmd)
 	add_env(minishell, ft_strjoin("PWD=", cwd));
 	ft_editcwd(minishell, ft_get_envv(minishell, minishell->env, "PWD"));
 	minishell->ret = 0;
-	free(cwd);
+	ft_strdel(&cwd);
 }

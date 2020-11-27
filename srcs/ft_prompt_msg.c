@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 13:06:43 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/25 16:18:09 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 17:34:01 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	ft_prompt_msg(t_minishell *minishell)
 	ft_putstr_fd(cwd, 2);
 	ft_putstr_fd(" $ ", 2);
 	ft_editcwd(minishell, cwd);
-	free(cwd);
+	ft_strdel(&cwd);
 }

@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 17:49:33 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:07:22 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int		ft_isenv(t_minishell *minishell, char *var)
 		ft_freestrarr(split);
 		if (!strcmp(key, var))
 		{
-			free(key);
+			ft_strdel(&key);
 			return (1);
 		}
-		free(key);
+		ft_strdel(&key);
 		i++;
 	}
 	return (0);

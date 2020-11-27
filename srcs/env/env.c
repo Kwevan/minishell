@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:00:03 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 17:51:23 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:07:18 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void		add_env(t_minishell *minishell, char *var)
 	tmp_env[j] = ft_strdup(var);
 	ft_freestrarr(minishell->env);
 	minishell->env = tmp_env;
+	ft_strdel(&var);
 }
