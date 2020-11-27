@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:17:47 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/23 19:46:58 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:01:25 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static void		ft_updateenv(t_minishell *minishell, char *env_update)
 	else
 		new_env = ft_strjoin(minishell->env[ret], value);
 	add_env(minishell, new_env);
-	free(key);
-	free(value);
-	free(new_env);
+	ft_strdel(&key);
+	ft_strdel(&value);
 }
 
 static int		ft_checkexporterr(t_minishell *minishell, char *cmd)
@@ -67,7 +66,7 @@ void			ft_export(t_minishell *minishell, char **cmd)
 			else if (check_plus(cmd[i]) > 0)
 				ft_updateenv(minishell, cmd[i]);
 			else
-				add_env(minishell, cmd[i]);
+				add_env(minishell, ft_strdup(cmd[i]));
 			i++;
 		}
 	}

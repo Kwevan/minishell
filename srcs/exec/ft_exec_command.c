@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 15:10:33 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/27 16:37:59 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			exec_bin(t_minishell *minishell, char **command)
 		if (execve(bin_path, command, minishell->env) == -1)
 		{
 			ft_strdel(&bin_path);
-			exit(print_errorcmd(command[0], 2));
+			exit(minishell->ret = print_errorcmd(command[0], 2));
 		}
 		ft_strdel(&bin_path);
 		exit(EXIT_SUCCESS);

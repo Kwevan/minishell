@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 17:41:05 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/26 14:32:33 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:02:39 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static void		print_env(char *env)
 		ft_putstr_fd("\"", STDOUT_FILENO);
 	}
 	ft_putstr_fd("\n", STDOUT_FILENO);
-	free(value);
-	free(key);
+	ft_strdel(&value);
+	ft_strdel(&key);
 }
 
 void			print_sortenv(t_minishell *minishell)
