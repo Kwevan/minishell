@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 16:37:44 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 19:32:59 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,12 @@ static void		handle_ctrl_c(int signal)
 
 static void		handle_ctrl_bl(int signal)
 {
-	char	*str_signal;
-
-	str_signal = ft_itoa(signal);
 	if (g_minishell.pid)
 	{
 		kill(g_minishell.pid, signal);
 		g_minishell.ret = 131;
-		ft_putstr_fd("\nQuit : ", STDERR_FILENO);
-		ft_putstr_fd(str_signal, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_putstr_fd("\nQuit (core dumped)\n", STDERR_FILENO);
 	}
-	free(str_signal);
 }
 
 void			handle_signal(void)
