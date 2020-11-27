@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/26 22:51:37 by kwe              ###   ########.fr       */
+/*   Updated: 2020/11/27 14:40:24 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				main(int argc, char **argv, char **env)
 		ft_prompt_msg(&g_minishell);
 		get_input(&g_minishell);
 		handle_input(&g_minishell);
-		system("leaks minishell");
+//		system("leaks minishell");
 	}
 	return (0);
 }

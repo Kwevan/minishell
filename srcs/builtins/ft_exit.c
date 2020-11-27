@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:49:34 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/26 15:47:17 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:07:04 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ void	ft_set_exit_status(t_minishell *mini, char *arg)
 
 void	ft_exit(t_minishell *mini, char **args)
 {
-	if (args[0] && args[1])
+	int i;
+
+	i = 1;
+	if (args[i] && args[i + 1])
 	{
 		ft_putstr_fd("minishell: exit: too many argument\n", STDERR_FILENO);
 		mini->ret = 1;
 		return ;
 	}
-	ft_set_exit_status(mini, args[0]);
+	ft_set_exit_status(mini, args[i]);
+	ft_freestrarr(args);
 	exit_shell(mini, mini->ret);
 }
