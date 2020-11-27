@@ -79,5 +79,6 @@ void			ft_exec_command(t_minishell *minishell, char **command)
 	if (command[0] == 0)
 		minishell->ret = 127;
 	else if (!exec_builtin(minishell, command))
+
 		exec_bin(minishell, command);
 }
