@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/23 19:28:51 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/27 17:49:33 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_isvalidenv(char *env)
 		return (-1);
 	if (env[0] == '=')
 		return (-2);
-	split = ft_split(env, '=');
+	split = ft_split2(env, "=");
 	len = ft_strlen(split[0]);
 	i = 0;
 	while (split[0][i])
@@ -79,7 +79,7 @@ int		ft_isenv(t_minishell *minishell, char *var)
 	i = 0;
 	while (minishell->env[i])
 	{
-		split = ft_split(minishell->env[i], '=');
+		split = ft_split2(minishell->env[i], "=");
 		key = ft_strdup(split[0]);
 		ft_freestrarr(split);
 		if (!strcmp(key, var))
