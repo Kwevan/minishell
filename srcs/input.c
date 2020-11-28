@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/28 02:02:48 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/28 11:17:20 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	get_input(t_minishell *mini)
 			i++;
 		}
 	}
-	mini->input[i] = '\0';
+	!mini->input ? mini->input = ft_strdup("") : 0;
 	if (ret < 1)
 		ft_mini_exit(mini);
 	parse_input(mini, mini->env);
