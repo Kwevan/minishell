@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/22 22:08:46 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/28 11:17:20 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ void	parse_input(t_minishell *mini, char **env)
 	}
 }
 
+void	ft_mini_exit(t_minishell *mini)
+{
+	ft_putstr_fd(strerror(errno), 2);
+	exit_shell(mini, 1);
+}
+
 void	get_input(t_minishell *mini)
 {
 	int		ret;
@@ -68,22 +74,24 @@ void	get_input(t_minishell *mini)
 	int		i;
 
 	i = 0;
-	if (!(mini->input = ft_strnew(1)))
-		exit_shell(mini, 1);
-	while (((ret = read(STDIN_FILENO, &buf, 1)) > 0) && buf != '\n')
+	mini->input = NULL;
+	while (((ret = read(STDIN_FILENO, &buf, 1)) >= 0) && buf != '\n')
 	{
-		mini->input[i] = buf;
-		if (!(mini->input = ft_realloc(mini->input, i + 1, i + 2)))
-			exit_shell(mini, 1);
-		i++;
+		if (ret == 0 && mini->input == NULL)
+			exit_shell(mini, mini->ret);
+		if (ret > 0)
+		{
+			if (i == 0)
+				if (!(mini->input = ft_strnew(1)))
+					exit_shell(mini, 1);
+			mini->input[i] = buf;
+			if (!(mini->input = ft_realloc(mini->input, i + 1, i + 2)))
+				exit_shell(mini, 1);
+			i++;
+		}
 	}
-	mini->input[i] = '\0';
-	if (ret == 0)
-		exit_shell(mini, mini->ret);
+	!mini->input ? mini->input = ft_strdup("") : 0;
 	if (ret < 1)
-	{
-		ft_putstr_fd(strerror(errno), 2);
-		exit_shell(mini, 1);
-	}
+		ft_mini_exit(mini);
 	parse_input(mini, mini->env);
 }

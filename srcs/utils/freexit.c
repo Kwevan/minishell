@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:07:44 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/25 17:31:46 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/27 22:33:01 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	exit_shell(t_minishell *minishell, int status)
 		free(minishell->curr_dir);
 	if (minishell)
 		minishell = NULL;
+	ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit(status);
 }
