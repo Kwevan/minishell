@@ -6,11 +6,19 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:44:09 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/27 22:23:21 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/11/28 00:39:23 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*error_path(t_minishell *mini)
+{
+	ft_putendl_fd("minishell: aucun fichier ou dossier de ce type", 2);
+	mini->ret = 127;
+	exit(127);
+	return (0);
+}
 
 char	*ft_get_bin_path(t_minishell *mini, char *bin)
 {
@@ -22,7 +30,7 @@ char	*ft_get_bin_path(t_minishell *mini, char *bin)
 
 	i = 0;
 	if (!(path = ft_get_envv(mini, mini->env, "PATH")))
-		ft_putendl_fd("minishell: aucun fichier ou dossier de ce type", 2);
+		return (error_path(mini));
 	if (!(folders = ft_split2(path, ":")))
 		exit_shell(mini, EXIT_FAILURE);
 	while (folders[i])
