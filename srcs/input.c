@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:35:26 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/27 23:09:56 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/11/28 02:02:48 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ void	parse_input(t_minishell *mini, char **env)
 	}
 }
 
+void	ft_mini_exit(t_minishell *mini)
+{
+	ft_putstr_fd(strerror(errno), 2);
+	exit_shell(mini, 1);
+}
+
 void	get_input(t_minishell *mini)
 {
 	int		ret;
@@ -72,7 +78,7 @@ void	get_input(t_minishell *mini)
 	while (((ret = read(STDIN_FILENO, &buf, 1)) >= 0) && buf != '\n')
 	{
 		if (ret == 0 && mini->input == NULL)
-			exit_shell(mini, 1);
+			exit_shell(mini, mini->ret);
 		if (ret > 0)
 		{
 			if (i == 0)
@@ -86,9 +92,6 @@ void	get_input(t_minishell *mini)
 	}
 	mini->input[i] = '\0';
 	if (ret < 1)
-	{
-		ft_putstr_fd(strerror(errno), 2);
-		exit_shell(mini, 1);
-	}
+		ft_mini_exit(mini);
 	parse_input(mini, mini->env);
 }
