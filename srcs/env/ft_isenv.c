@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 18:07:22 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:36:29 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		ft_isvalidenv(char *env)
 	int		len;
 	char	**split;
 
+	if (env[0] == '\0' || ft_isallspace(env) == 1)
+		return (-4);
 	if (ft_isdigit(env[0]) == 1)
 		return (-1);
 	if (env[0] == '=')

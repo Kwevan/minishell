@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:17:47 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 18:01:25 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:40:46 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ static int		ft_checkexporterr(t_minishell *minishell, char *cmd)
 	err_ret = ft_isvalidenv(cmd);
 	if (err_ret < 0)
 	{
+		ft_putstr_fd("minishell: export: \" ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(" \" : not a valid identifier\n", STDERR_FILENO);
 		minishell->ret = 1;
 		return (1);
 	}
