@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/24 23:11:49 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/02 20:01:40 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	ft_parent(t_minishell *mini, int p[2], int fd_in, int last)
 {
-	if (wait(&mini->ret) == -1)
-		ft_putendl_fd("error: wait", 2);
-	if (WEXITSTATUS(mini->ret))
-		mini->ret = WEXITSTATUS(mini->ret);
+  //    while (waitpid(mini->pid, &mini->ret, WNOHANG) > 0)
+		(void)last;
+		(void)mini;
+//	if (wait(&mini->ret) == -1)
+//		ft_putendl_fd("error: wait", 2);
+//	if (WEXITSTATUS(mini->ret))
+//		mini->ret = WEXITSTATUS(mini->ret);
 	ft_close(p[1]);
 	ft_close(fd_in);
 	if (!last)
@@ -66,7 +69,12 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		exit(EXIT_SUCCESS);
 	}
 	else
-		ft_parent(mini, p, *fd_in, last);
+	{
+	mini->pids = ft_realloc(mini->pids, mini->pcount, mini->pcount + 1);
+	mini->pids[0] = mini->pid;
+	mini->pcount++;
+	ft_parent(mini, p, *fd_in, last);
+	}
 }
 
 int		ft_pipe_redir(t_minishell *mini, char *cmd)
@@ -76,6 +84,8 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	int		i;
 	char	**splitted;
 
+	mini->pids = malloc(sizeof(int));
+	mini->pids[0] = 0;
 	if (!ft_is_pipe_or_redir(cmd))
 		return (0);
 	if (!ft_check_pipe(mini, cmd))
@@ -92,6 +102,32 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	}
 	dup2(old_stdin, 0);
 	ft_close(old_stdin);
+
+/*
+i = 0;
+
+	while (mini->pids[i])
+	{
+		waitpid(mini->pids[i], &mini->ret, WUNTRACED);
+		i++;
+//		mini->pcount--;
+	//		if (WEXITSTATUS(mini->ret))
+	//	mini->ret = WEXITSTATUS(mini->ret);
+	}*/
+	
+	ft_putnbr_fd(mini->pcount , 2);
+	while (mini->pcount != 0)
+	{
+		waitpid(mini->pids[mini->pcount - 1], &mini->ret, 0);
+		mini->pcount--;
+	}
+			
+	//	wait(&mini->ret);
+	if (WEXITSTATUS(mini->ret))
+		mini->ret = WEXITSTATUS(mini->ret);
+
+
 	ft_freestrarr(splitted);
+	ft_strdel((void *)&mini->pids);
 	return (1);
 }
