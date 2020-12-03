@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/12/02 20:37:53 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/03 01:44:09 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		ft_pipe_redir(t_minishell *mini, char *cmd)
 	}
 	if (WEXITSTATUS(mini->ret))
 		mini->ret = WEXITSTATUS(mini->ret);
+	mini->pcount = 0;
+	mini->pid = 0;
 	ft_freestrarr(splitted);
 	ft_strdel((void *)&mini->pids);
 	return (1);
