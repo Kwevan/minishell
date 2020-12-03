@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:25:33 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/12/01 18:03:47 by afoulqui         ###   ########.fr       */
+/*   Updated: 2020/12/03 12:50:58 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	ft_checkunseterr(t_minishell *minishell, char *cmd)
 		minishell->ret = 1;
 		return (1);
 	}
-	minishell->ret = 0;
 	return (0);
 }
 
@@ -35,22 +34,22 @@ void		ft_unset(t_minishell *minishell, char **cmd)
 	int		argc;
 
 	argc = ft_countstrarr(cmd);
+	minishell->ret = 0;
 	if (argc == 1)
-	{
-		minishell->ret = 0;
 		return ;
-	}
 	else
 	{
 		i = 1;
 		while (i < argc)
 		{
 			if (ft_checkunseterr(minishell, cmd[i]) == 1)
-				return ;
-			else if (ft_isenv(minishell, cmd[i]) == 1)
-				remove_env(minishell, cmd[i]);
-			i++;
+				i++;
+			else
+			{
+				if (ft_isenv(minishell, cmd[i]) == 1)
+					remove_env(minishell, cmd[i]);
+				i++;
+			}
 		}
 	}
-	minishell->ret = 0;
 }
