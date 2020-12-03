@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:21:50 by kwe               #+#    #+#             */
-/*   Updated: 2020/11/26 14:47:16 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/03 12:38:51 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct	s_minishell
 	int			pipe_err;
 	int			ret;
 	pid_t		pid;
+	int			pcount;
+	int			*pids;
 }				t_minishell;
 
 typedef struct	s_redir
@@ -134,6 +136,7 @@ int				ft_redir_type(char c, char d, int *type, int *i);
 int				get_fd(int type, char *fname, t_minishell *mini, int close);
 void			ft_join_redir(t_minishell *mini,
 					t_redir *redir2, char *redir, int max);
+void			ft_add_process(t_minishell *m);
 
 /*
 **	UTILS
@@ -146,5 +149,7 @@ char			*ft_removequotes(char *str);
 void			ft_close(int fd);
 char			*ft_remove_space(char *str);
 int				ft_isallspace(char *s);
+
+void			handle_ctrl_bl(int signal);
 
 #endif

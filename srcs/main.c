@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/28 11:16:13 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/12/03 12:54:51 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		handle_ctrl_c(int signal)
 		kill(g_minishell.pid, signal);
 }
 
-static void		handle_ctrl_bl(int signal)
+void			handle_ctrl_bl(int signal)
 {
 	if (g_minishell.pid)
 	{
@@ -73,6 +73,7 @@ int				main(int argc, char **argv, char **env)
 	handle_signal();
 	while (1)
 	{
+		handle_signal();
 		ft_prompt_msg(&g_minishell);
 		get_input(&g_minishell);
 		handle_input(&g_minishell);

@@ -6,7 +6,7 @@
 #    By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/29 11:46:02 by afoulqui          #+#    #+#              #
-#    Updated: 2020/11/26 17:33:56 by afoulqui         ###   ########.fr        #
+#    Updated: 2020/12/03 12:38:27 by kwe              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ PIPE_REDIR	=	ft_check_pipe.c \
 				ft_pipe_redir.c \
 				ft_redir_type.c \
 				ft_redir.c \
+				process.c \
 
 UTILS		=	freexit.c \
 				ft_close.c \

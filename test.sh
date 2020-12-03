@@ -11,10 +11,10 @@ make re -C ../
 
 if [ $OS == "Darwin" ]; then
 	echo 'Mac os'
-	sed -i '' '/head -c 100/d' ./test.sh
+#	sed -i '' '/head -c 100/d' ./test.sh
 else
 	echo 'Linux'
-	sed -i '/head -c 100/d' ./test.sh
+#//	sed -i '/head -c 100/d' ./test.sh
 fi
 
 bash test.sh
