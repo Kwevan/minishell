@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:38:25 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/24 12:09:15 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/03 12:27:46 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,24 @@
 
 static int	ft_check_option(char *cmd)
 {
-	if (!ft_strncmp(cmd, "-n", 2))
-		return (1);
-	else
-		return (0);
+	int		i;
+	int		opt;
+
+	opt = 0;
+	i = 0;
+	if (cmd[i] == '-')
+	{
+		i++;
+		while (cmd[i])
+		{
+			if (cmd[i] == 'n')
+				opt = 1;
+			else
+				return (0);
+			i++;
+		}
+	}
+	return (opt);
 }
 
 void		ft_echo(t_minishell *minishell, char **cmd)
