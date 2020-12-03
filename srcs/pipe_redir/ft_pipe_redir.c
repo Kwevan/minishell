@@ -6,7 +6,7 @@
 /*   By: kgouacid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 19:46:45 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/12/03 12:53:48 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/03 14:32:24 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exec_pipe(t_minishell *mini, char *cmd, int *fd_in, int last)
 		parsed = ft_parse(mini, splitted);
 		ft_exec_pipe_cmd(mini, parsed);
 		ft_freestrarr(parsed);
-		exit(EXIT_SUCCESS);
+		exit(mini->ret);
 	}
 	else
 		ft_parent(mini, p, *fd_in, last);
