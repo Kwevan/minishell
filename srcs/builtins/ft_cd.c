@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:40:22 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/27 18:13:46 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/03 11:25:19 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ static void		print_cderror(t_minishell *minishell, char *str, int code)
 void			ft_cd(t_minishell *minishell, char **cmd)
 {
 	char	*cwd;
+	int		argc;
 
 	cwd = NULL;
+	argc = ft_countstrarr(cmd);
+	minishell->ret = 0;
 	if (chdir(get_path_cd(minishell, cmd[1])) < 0)
 	{
-		print_cderror(minishell, strerror(errno), 1);
+		if (argc > 1)
+			print_cderror(minishell, strerror(errno), 1);
 		return ;
 	}
 	if (!(cwd = getcwd(NULL, 0)))
@@ -51,6 +55,5 @@ void			ft_cd(t_minishell *minishell, char **cmd)
 	}
 	add_env(minishell, ft_strjoin("PWD=", cwd));
 	ft_editcwd(minishell, ft_get_envv(minishell, minishell->env, "PWD"));
-	minishell->ret = 0;
 	ft_strdel(&cwd);
 }
