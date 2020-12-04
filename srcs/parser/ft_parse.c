@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 10:04:56 by kgouacid          #+#    #+#             */
-/*   Updated: 2020/11/26 22:53:54 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/04 03:44:55 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ void	ft_remove_quotes(t_minishell *mini, char **word)
 	i = 0;
 	while ((*word)[i] && (ft_quote_open(&quotes, (*word)[i]) != 10))
 	{
-		if ((quotes.nx && (((*word)[i] == '"')
+		if ((quotes.bs && (quotes.q && (*word)[i + 1] != '\\'))
+			|| (quotes.nx && (((*word)[i] == '"')
 			|| ((*word)[i] == '\''))) || (!(!quotes.dq && (*word)[i] == '"')
 			&& !(!quotes.q && (*word)[i] == '\'') && !(quotes.bs)))
-		{
-			res[len++] = (*word)[i];
-			i++;
-		}
+			res[len++] = (*word)[i++];
 		else
 			i++;
 	}
