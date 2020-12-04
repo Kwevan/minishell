@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:00:39 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/12/03 12:54:51 by kwe              ###   ########.fr       */
+/*   Updated: 2020/12/04 16:28:16 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ static void		handle_ctrl_c(int signal)
 {
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	if (!(g_minishell.pid))
-	{
-		g_minishell.ret = 130;
 		ft_prompt_msg(&g_minishell);
-	}
 	else
-		kill(g_minishell.pid, signal);
+		kill(g_minishell.pid, signal);	
+	g_minishell.ret = 130;
 }
 
 void			handle_ctrl_bl(int signal)
