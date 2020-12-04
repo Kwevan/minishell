@@ -6,7 +6,7 @@
 /*   By: kwe <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 13:23:30 by kwe               #+#    #+#             */
-/*   Updated: 2020/12/03 17:19:06 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:00:31 by kgouacid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_exec_redir3(t_minishell *mini, char **parsed)
 	{
 		bin_path = ft_get_bin_path(mini, parsed[0]);
 		if ((execve(bin_path, parsed, mini->env)) == -1)
-			ft_putendl_fd(strerror(errno), 2);
+		{
+			ft_strdel(&bin_path);
+			exit(print_errorcmd(parsed[0], 2));
+		}
 		ft_strdel(&bin_path);
 	}
 }
@@ -42,7 +45,7 @@ int		ft_exec_redir2(t_minishell *mini, int std[2], char *cmd)
 		parsed = ft_parse(mini, splitted);
 		ft_exec_redir3(mini, parsed);
 		ft_freestrarr(parsed);
-		exit(EXIT_SUCCESS);
+		exit(mini->ret);
 	}
 	else
 		wait(&mini->pid);
