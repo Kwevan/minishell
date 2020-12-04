@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:33:13 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/11/28 00:39:58 by kgouacid         ###   ########.fr       */
+/*   Updated: 2020/12/04 14:48:30 by afoulqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,34 @@ int				exec_builtin(t_minishell *minishell, char **command)
 
 int				print_errorcmd(char *cmd, int code)
 {
+	int		ret;
+
+	ret = 0;
 	if (code == 1)
+	{
 		ft_putstr_fd("minishell: fork error\n", STDOUT_FILENO);
+		ret = 127;
+	}
 	else if (code == 2)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(cmd, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		ret = 127;
 	}
-	return (127);
+	else if (code == 13)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		ret = 126;
+	}
+	return (ret);
 }
 
 void			exec_bin(t_minishell *minishell, char **command)
 {
-	char *bin_path;
+	char	*bin_path;
 
 	minishell->pid = fork();
 	if (minishell->pid == -1)
@@ -67,7 +81,7 @@ void			exec_bin(t_minishell *minishell, char **command)
 		if (execve(bin_path, command, minishell->env) == -1)
 		{
 			ft_strdel(&bin_path);
-			exit(minishell->ret = print_errorcmd(command[0], 2));
+			exit(minishell->ret = print_errorcmd(command[0], errno));
 		}
 		ft_strdel(&bin_path);
 		exit(EXIT_SUCCESS);
