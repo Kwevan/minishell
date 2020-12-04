@@ -21,4 +21,4 @@ bash test.sh
 
 cd ..
 
-rm -rf $DIR_NAME
+#rm -rf $DIR_NAME
