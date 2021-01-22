@@ -6,7 +6,7 @@
 /*   By: afoulqui <afoulqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 17:58:52 by afoulqui          #+#    #+#             */
-/*   Updated: 2020/12/01 17:36:29 by afoulqui         ###   ########.fr       */
+/*   Updated: 2021/01/22 21:52:47 by kwe              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int		ft_isvalidenv(char *env)
 	i = 0;
 	while (split[0][i])
 	{
-		if (ft_isalnum(split[0][i]) == 0 && split[0][len - 1] != '+')
+		if (ft_isalnum(split[0][i]) == 0 && (ft_index("-_", split[0][i]) == -1)
+			&& split[0][len - 1] != '+')
 		{
 			ft_freestrarr(split);
 			return (-3);
